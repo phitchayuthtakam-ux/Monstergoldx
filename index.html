@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#E9F1E4">
+<title>MonsterGoldX</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MonsterGoldX">
+<meta name="description" content="โปรแกรมเทรนและควบคุมอาหาร 273 วัน">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='%23F7F4EE'/%3E%3Ccircle cx='20' cy='20' r='17' fill='none' stroke='%23A61B18' stroke-width='1.4'/%3E%3Cpath d='M13 13.5 Q20 9 27 13.5' stroke='%23A61B18' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M14.5 17.5 L17 27 M20 16.5 L20 27.5 M25.5 17.5 L23 27' stroke='%23A61B18' stroke-width='1.7' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+      :root{
+  --bg:#FFFFFF;
+  --mint:#E9F1E4;
+  --mint2:#DCE9D4;
+  --cream:#FBF5EA;
+  --s1:#FFFFFF;
+  --s2:#F6F8F5;
+  --s3:#EBEFE8;
+  --line:#EBEEF3;
+  --line2:#D8DEE6;
+  --ink:#13294B;
+  --ink2:#5B6B85;
+  --ink3:#94A0B4;
+  --green:#5F7F4F;
+  --green-d:#47643A;
+  --terra:#C85F35;
+  --terra2:#E08A5E;
+  --red:#D6302B;
+  --gold:#B98A3E;
+  --gold-d:#9A6F26;
+  --violet:#5F7F4F;
+  --violet-d:#47643A;
+  --steel:#4E86C4;
+  --moss:#3E8F5E;
+  --brick:#D6302B;
+  --sh:0 2px 14px rgba(19,41,75,.05);
+  --sh2:0 10px 30px rgba(19,41,75,.10);
+  --r:18px;
+  --sans:"Sukhumvit Set","IBM Plex Sans Thai","Noto Sans Thai","Leelawadee UI",Tahoma,-apple-system,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;
+  padding-bottom:calc(72px + env(safe-area-inset-bottom));
+}
+button{font-family:inherit;font-size:inherit;color:inherit;border:0;background:none;cursor:pointer}
+input{font-family:inherit;font-size:inherit;color:inherit}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);
+  background:rgba(255,255,255,.95);border-bottom:1px solid var(--line);padding:11px 18px 10px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand svg{flex:0 0 34px}
+.brand .w{font-weight:800;font-size:15px;letter-spacing:.14em;line-height:1;color:var(--ink)}
+.brand .w i{font-style:normal;color:var(--terra)}
+.brand .rt b{color:var(--ink)}
+.brand .tag{font-size:8.5px;color:var(--ink3);letter-spacing:.2em;margin-top:5px;font-weight:500}
+.brand .rt{margin-left:auto;text-align:right}
+.brand .rt b{display:block;font-size:13px;font-weight:600}
+.brand .rt span{display:block;font-size:10.5px;color:var(--ink3)}
+.track{margin-top:12px;height:2px;background:var(--s3);position:relative;overflow:hidden}
+.track i{position:absolute;inset:0 auto 0 0;background:var(--terra)}
+.track u{position:absolute;top:0;bottom:0;width:1px;background:var(--bg)}
+
+/* ---------- shell ---------- */
+main{padding:20px 18px 30px;max-width:660px;margin:0 auto}
+.view{display:none}.view.on{display:block}
+h2{font-size:15px;font-weight:600;color:var(--ink);margin:32px 0 13px;letter-spacing:.01em;font-family:var(--serif)}
+h2:first-child{margin-top:2px}
+.card{background:var(--s1);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.card+.card{margin-top:11px}
+
+/* ---------- hero ---------- */
+.hero{border-radius:16px;padding:24px 22px;background:var(--ink);border:0;position:relative;overflow:hidden;color:#F7F4EE}
+.hero:before{content:"";position:absolute;right:-86px;top:-86px;width:230px;height:230px;border-radius:50%;
+  border:1px solid rgba(247,244,238,.16)}
+.hero:after{content:"";position:absolute;right:-46px;top:-46px;width:150px;height:150px;border-radius:50%;
+  border:1px solid rgba(166,27,24,.55)}
+.hero .kick{font-size:9.5px;letter-spacing:.22em;color:#B9AF9E;font-weight:500;text-transform:uppercase}
+.hero h1{margin:9px 0 0;font-size:23px;font-weight:600;line-height:1.3;letter-spacing:.005em;position:relative;font-family:var(--serif)}
+.hero .sub{margin-top:9px;font-size:13px;color:#B9AF9E;position:relative;font-weight:400}
+.hero .row{display:flex;align-items:center;gap:14px;margin-top:15px;position:relative}
+.ring{flex:0 0 62px}
+.go{display:block;width:100%;flex:1;padding:15px;border-radius:99px;text-align:center;font-weight:600;
+  background:var(--green);color:#fff;letter-spacing:.02em;font-size:14.5px}
+.go.ghost{background:transparent;color:var(--ink);border:1px solid var(--line2);font-weight:600}
+.note{background:#FDF1EC;border:1px solid #F6DCD1;border-left:3px solid var(--terra);border-radius:0 14px 14px 0;
+  padding:14px 16px;font-size:13.5px;margin-top:11px;color:#8F3D1A;line-height:1.6}
+.note.gold{background:var(--cream);border-color:#EFE4CE;border-left-color:var(--gold);color:#7A5A1E}
+
+/* ---------- checklist ---------- */
+.chk{display:flex;align-items:center;gap:13px;padding:13px 0;border-bottom:1px solid var(--line)}
+.chk:last-child{border-bottom:0}
+.box{flex:0 0 24px;height:24px;border:1px solid var(--line2);border-radius:50%;position:relative;transition:.15s;background:transparent}
+.done .box{background:var(--moss);border-color:var(--moss)}
+.done .box:after{content:"";position:absolute;left:8px;top:4px;width:5px;height:11px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg)}
+.chk .t{flex:1;min-width:0}
+.chk .t b{display:block;font-weight:600;font-size:14.5px}
+.chk .t span{display:block;font-size:12.5px;color:var(--ink2);margin-top:1px}
+.done .t b{color:var(--ink3);text-decoration:line-through}
+
+/* ---------- stats ---------- */
+.stats{display:grid;grid-auto-flow:column;gap:8px}
+.stats div{background:transparent;border:1px solid var(--line);border-radius:12px;padding:14px 5px;text-align:center}
+.stats b{display:block;font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:0}
+.stats span{display:block;font-size:9.5px;color:var(--ink3);margin-top:5px;letter-spacing:.08em}
+.stats div.hi{background:var(--cream);border-color:#EFE4CE}
+.stats div.hi b{color:var(--terra)}
+
+.water{display:flex;gap:5px;margin-top:11px}
+.water b{flex:1;height:36px;border:1px solid var(--line2);border-radius:6px;background:transparent;transition:.15s}
+.water b.on{background:var(--steel);border-color:var(--steel)}
+
+/* ---------- exercise ---------- */
+.ex{border-bottom:1px solid var(--line);padding:14px 0}
+.ex:last-child{border-bottom:0}
+.ex-top{display:flex;gap:12px;align-items:flex-start}
+.fig{flex:0 0 84px;height:66px;background:var(--mint);border:0;border-radius:14px;padding:5px}
+.fig svg{width:100%;height:100%;display:block}
+.ex-i{flex:1;min-width:0}
+.ex-i b{display:block;font-weight:600;font-size:15px;line-height:1.35;font-family:var(--serif)}
+.ex-i .sr{display:inline-block;margin-top:6px;font-family:var(--mono);font-size:11.5px;color:var(--green-d);
+  background:var(--mint);border:0;border-radius:99px;padding:4px 11px;font-weight:700}
+.ex-i .mt{display:inline-block;margin:5px 0 0 5px;font-family:var(--mono);font-size:11.5px;color:var(--ink3)}
+.ex-tip{font-size:12.5px;color:var(--ink2);margin-top:8px;line-height:1.45}
+.sets{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+.set{display:flex;align-items:center;gap:2px;background:transparent;border:1px solid var(--line2);
+  border-radius:10px;padding:6px 6px 6px 9px}
+.set input{width:40px;border:0;background:transparent;text-align:center;font-family:var(--mono);font-size:13.5px;padding:2px 0}
+.set input:focus{outline:2px solid var(--green);outline-offset:2px;border-radius:4px}
+.set .x{color:var(--ink3);font-size:11px}
+.set .rm{color:var(--brick);padding:0 3px;font-size:16px;line-height:1}
+.addset{border:1px dashed var(--line2);border-radius:99px;padding:7px 15px;font-size:12.5px;color:var(--green-d);font-weight:700;background:var(--s2)}
+.last{font-size:11.5px;color:var(--ink3);margin-top:8px;font-family:var(--mono)}
+.rests{display:flex;gap:6px;margin-top:12px}
+.rests button{flex:1;border:1px solid var(--line2);border-radius:99px;padding:10px 0;font-size:12px;background:transparent;color:var(--ink2)}
+
+/* ---------- timer ---------- */
+.timer{position:fixed;left:14px;right:14px;bottom:calc(78px + env(safe-area-inset-bottom));
+  background:var(--s1);border:1px solid var(--line2);border-radius:14px;
+  padding:13px 16px;display:none;align-items:center;gap:14px;z-index:25;box-shadow:var(--sh2)}
+.timer.on{display:flex}
+.timer .n{font-family:var(--mono);font-size:26px;font-weight:800;color:var(--terra);letter-spacing:-.02em}
+.timer .p{flex:1;height:4px;background:var(--s3);border-radius:99px;position:relative;overflow:hidden}
+.timer .p i{position:absolute;inset:0 auto 0 0;background:var(--terra);border-radius:99px}
+.timer button{color:var(--ink3);font-size:13px}
+
+/* ---------- meals ---------- */
+.meal{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);align-items:flex-start}
+.meal:last-child{border-bottom:0}
+.meal .tm{flex:0 0 50px;font-family:var(--mono);font-size:12px;color:var(--terra);padding-top:4px;font-weight:700}
+.meal .bd{flex:1;min-width:0}
+.meal .bd b{display:block;font-weight:600;font-size:14.5px;font-family:var(--serif)}
+.meal .bd span{display:block;font-size:13px;color:var(--ink2);margin-top:3px;line-height:1.45}
+.meal .bd em{display:block;font-style:normal;font-size:11px;color:var(--ink3);margin-top:5px;font-family:var(--mono)}
+.meal.done .bd b{color:var(--ink3)}
+.mbar{height:4px;background:var(--s3);border-radius:99px;position:relative;overflow:hidden;margin-top:6px}
+.mbar i{position:absolute;inset:0 auto 0 0;background:var(--green);border-radius:99px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:12px;padding:7px 13px;border-radius:99px;background:var(--mint);border:0;color:var(--green-d);font-weight:600}
+.tag.no{background:#FDF1EC;border-color:#F6DCD1;color:#B8501F}
+
+/* ---------- weigh ---------- */
+.bigin{display:flex;gap:9px;margin-top:9px}
+.bigin input{flex:1;border:1px solid var(--line2);background:transparent;border-radius:12px;padding:15px;
+  font-family:var(--serif);font-size:28px;text-align:center;font-weight:600}
+.bigin button{background:var(--green);color:#fff;border-radius:99px;padding:0 24px;font-weight:700}
+svg.chart{width:100%;height:180px;display:block}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px}
+th,td{padding:9px 6px;text-align:center;border-bottom:1px solid var(--line)}
+th{color:var(--ink3);font-weight:500;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+td.l{text-align:left}
+tr:last-child td{border-bottom:0}
+tr.hit td:last-child{color:var(--moss);font-weight:600}
+tr.miss td:last-child{color:var(--brick);font-weight:700}
+.mz label{font-size:11.5px;color:var(--ink3);display:block;margin-bottom:5px}
+.mz input{width:100%;border:1px solid var(--line);background:var(--s2);border-radius:13px;padding:12px;
+  font-family:var(--mono);text-align:center;font-size:15px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:4px}
+
+/* ---------- plan ---------- */
+.dnav{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+.dnav button{border:1px solid var(--line);background:var(--s2);border-radius:50%;width:44px;height:44px;padding:0;color:var(--green-d);font-size:17px;line-height:1}
+.dnav div{flex:1;border:0;background:transparent;padding:11px;text-align:center;font-size:14px;font-weight:600;font-family:var(--serif)}
+.rule{display:flex;gap:10px;padding:11px 0;border-bottom:1px solid var(--line);font-size:13.5px;align-items:flex-start}
+.rule:last-child{border-bottom:0}
+.rule s{text-decoration:none;flex:0 0 54px;font-size:10px;font-weight:700;text-align:center;
+  padding:4px 0;border-radius:99px;background:#FDF1EC;color:#B8501F;margin-top:1px}
+.rule.g s{background:var(--mint);color:var(--green-d)}
+.rule span{flex:1}
+
+/* ---------- nav ---------- */
+nav{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;
+  background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border-top:1px solid var(--line);
+  padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;padding:11px 2px 10px;color:var(--ink3);font-size:10px;text-align:center;position:relative;font-weight:500}
+nav button svg{display:block;margin:0 auto 3px;width:21px;height:21px}
+nav button.on{color:var(--ink)}
+nav button.on:before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:22px;height:2.5px;background:var(--terra);border-radius:99px}
+
+
+
+
+
+/* ---------- แบนเนอร์ลายพื้นหลัง ---------- */
+.banner{margin:-20px -18px 0;padding:22px 18px 62px;position:relative;overflow:hidden;
+  background:var(--mint);background-image:
+   radial-gradient(circle at 12% 22%,rgba(255,255,255,.9) 9px,transparent 10px),
+   radial-gradient(circle at 78% 14%,rgba(255,255,255,.75) 6px,transparent 7px),
+   radial-gradient(circle at 44% 58%,rgba(255,255,255,.55) 12px,transparent 13px),
+   radial-gradient(circle at 90% 70%,rgba(255,255,255,.8) 8px,transparent 9px),
+   radial-gradient(circle at 25% 84%,rgba(255,255,255,.6) 10px,transparent 11px),
+   radial-gradient(circle at 62% 32%,rgba(255,255,255,.45) 5px,transparent 6px)}
+.banner .bn{position:relative;text-align:center}
+.banner .bn em{display:block;font-style:normal;font-size:11px;letter-spacing:.2em;color:var(--green-d);font-weight:600}
+.banner .bn h1{margin:9px 0 0;font-family:var(--serif);font-size:30px;font-weight:600;color:var(--green-d);letter-spacing:-.01em;line-height:1.15}
+.banner .bn p{margin:9px 0 0;font-size:13px;color:var(--green-d);opacity:.85}
+.banner .bn .cd{display:inline-flex;align-items:baseline;gap:7px;margin-top:14px;background:rgba(255,255,255,.75);
+  border-radius:99px;padding:8px 18px}
+.banner .bn .cd b{font-family:var(--serif);font-size:27px;font-weight:600;color:var(--terra)}
+.banner .bn .cd span{font-size:11.5px;color:var(--green-d);font-weight:600}
+
+/* ---------- การ์ดขาวลอยทับแบนเนอร์ ---------- */
+.sheet{background:#fff;border-radius:22px;box-shadow:var(--sh);margin:-46px 0 0;padding:18px;position:relative;z-index:2}
+.hi-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hi-row .nm{font-size:19px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.hi-row .bg{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(90deg,#F6D5C4,#F3C3AB);
+  border-radius:99px;padding:5px 13px;font-size:11.5px;font-weight:700;color:#9C4520;margin-top:6px}
+.hi-row .av{flex:0 0 52px;height:52px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center}
+.hi-row .av svg{width:32px;height:32px}
+.kpi{display:flex;gap:26px;margin-top:14px}
+.kpi div b{display:block;font-size:23px;font-weight:800;color:var(--ink);font-family:var(--mono);letter-spacing:-.02em}
+.kpi div span{display:block;font-size:10.5px;color:var(--ink3);letter-spacing:.09em;margin-top:2px;font-weight:600}
+
+/* ---------- ปุ่มใหญ่สองช่องมีภาพ ---------- */
+.duo{display:flex;align-items:stretch;margin-top:20px}
+.duo > button{flex:1;background:none;padding:6px 4px;text-align:center;position:relative}
+.duo .sep{flex:0 0 1px;background:var(--line);margin:10px 0}
+.blob{width:118px;height:88px;margin:0 auto;border-radius:50%/46%;display:flex;align-items:center;justify-content:center;
+  background:var(--mint);position:relative}
+.blob svg{width:92px;height:70px}
+.duo b{display:block;margin-top:11px;font-size:16px;font-weight:800;letter-spacing:.02em;color:var(--green-d)}
+.duo span{display:block;font-size:11.5px;color:var(--ink3);margin-top:4px;font-weight:600}
+.duo .tagr{position:absolute;top:0;right:4px;background:var(--mint2);color:var(--green-d);
+  font-size:10px;font-weight:700;padding:4px 10px;border-radius:99px}
+.duo .tagr.ok{background:#E2F3E8;color:#2C7A4C}
+
+/* ---------- แถวไอคอนเส้นบาง 4 ช่อง ---------- */
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
+.quick button{padding:4px 2px;text-align:center;position:relative}
+.quick i{display:block;color:var(--green);margin-bottom:8px}
+.quick i svg{width:27px;height:27px;margin:0 auto}
+.quick b{display:block;font-size:11.5px;font-weight:600;color:var(--ink2);line-height:1.35}
+.quick .dot{position:absolute;top:-2px;right:12px;width:7px;height:7px;border-radius:50%;background:var(--moss)}
+
+/* ---------- การ์ดเลเวลไล่สี ---------- */
+.lvl{border-radius:20px;overflow:hidden;background:linear-gradient(130deg,#D47548,#C85F35 62%,#B85028);
+  padding:20px 18px 0;position:relative;margin-top:22px;box-shadow:0 8px 22px rgba(200,95,53,.22)}
+.lvl:before{content:"";position:absolute;right:-40px;top:-30px;width:190px;height:190px;border-radius:50%;background:rgba(255,255,255,.08)}
+.lvl h3{margin:0;font-family:var(--serif);font-size:26px;font-weight:600;color:#FFF3EA;position:relative}
+.lvl p{margin:7px 0 0;font-size:13px;color:rgba(255,243,234,.9);position:relative}
+.lvl .pr{display:flex;align-items:center;gap:11px;margin-top:13px;position:relative}
+.lvl .pr .bar{flex:1;height:7px;background:rgba(255,255,255,.35);border-radius:99px;overflow:hidden}
+.lvl .pr .bar i{display:block;height:100%;background:#5A2A12;border-radius:99px}
+.lvl .pr b{font-size:13px;color:#FFF3EA;font-family:var(--mono);font-weight:700}
+.lvl .inner{background:#fff;border-radius:16px;margin-top:17px;padding:14px;position:relative}
+.lvl .inner .hd{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:12px}
+.lvl .inner .row4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center}
+.lvl .inner .row4 b{display:block;font-family:var(--mono);font-size:17px;font-weight:800;color:var(--ink)}
+.lvl .inner .row4 span{display:block;font-size:10.5px;color:var(--ink3);margin-top:3px;font-weight:600}
+.lvl .pad{height:16px}
+
+/* ---------- การ์ดครีม 2 ช่อง ---------- */
+.ccards{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.ccard{background:var(--cream);border-radius:16px;padding:16px;min-height:104px;display:flex;flex-direction:column;justify-content:space-between}
+.ccard .t{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.ccard .t span{font-size:12.5px;font-weight:700;color:var(--ink);letter-spacing:.02em}
+.ccard .t i{color:var(--gold);flex:0 0 auto}
+.ccard .t i svg{width:19px;height:19px;display:block}
+.ccard b{font-family:var(--mono);font-size:25px;font-weight:800;color:var(--ink);letter-spacing:-.02em}
+.ccard em{font-style:normal;font-size:11px;color:var(--ink3);font-weight:600;display:block;margin-top:2px}
+.secthd{font-size:16px;font-weight:800;color:var(--ink);letter-spacing:.04em;margin:26px 0 12px}
+.secthd span{display:block;font-size:10px;font-weight:600;color:var(--ink3);letter-spacing:.16em;margin-top:3px}
+
+
+/* ---------- หน้าตั้งค่าเริ่มต้น ---------- */
+.ob{padding:4px 0 10px}
+.ob .obh{text-align:center;padding:18px 6px 22px}
+.ob .obh em{display:block;font-style:normal;font-size:10.5px;letter-spacing:.2em;color:var(--green-d);font-weight:700}
+.ob .obh h1{margin:11px 0 0;font-family:var(--serif);font-size:27px;font-weight:600;color:var(--ink);line-height:1.25}
+.ob .obh p{margin:11px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.6}
+.obs{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:17px;margin-bottom:11px;display:flex;gap:13px}
+.obs.done{background:#F6FAF7;border-color:#CCE6D6}
+.obs .n{flex:0 0 30px;height:30px;border-radius:50%;border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:13px;color:var(--ink3);font-family:var(--mono)}
+.obs.done .n{background:var(--moss);border-color:var(--moss);color:#fff}
+.obs .bd{flex:1;min-width:0}
+.obs .bd b{display:block;font-size:15.5px;font-weight:800;color:var(--ink)}
+.obs .bd span{display:block;font-size:12.5px;color:var(--ink2);margin-top:6px;line-height:1.55}
+.obs .bd .warn{color:#B8501F;font-weight:600}
+/* ---------- คลังอาหารที่กินบ่อย ---------- */
+.favs{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
+.fav{display:inline-flex;align-items:center;gap:7px;background:var(--mint);border:0;border-radius:99px;
+  padding:8px 13px;font-size:12.5px;color:var(--green-d);font-weight:600}
+.fav s{text-decoration:none;font-family:var(--mono);font-size:11px;opacity:.75}
+.favttl{font-size:11.5px;color:var(--ink3);font-weight:700;margin-top:13px;letter-spacing:.04em}
+/* ---------- ไดอารี่อาหาร ---------- */
+.kcalcard{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:18px}
+.kcalcard .top{display:flex;align-items:baseline;justify-content:space-between}
+.kcalcard .big{font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.02em;font-family:var(--mono)}
+.kcalcard .big s{text-decoration:none;font-size:15px;color:var(--ink3);font-weight:600}
+.kcalcard .left{text-align:right}
+.kcalcard .left b{display:block;font-size:24px;font-weight:800;font-family:var(--mono);color:var(--green-d);letter-spacing:-.02em}
+.kcalcard .left span{font-size:11px;color:var(--ink3);font-weight:600}
+.kcalcard .over b{color:var(--terra)}
+.kbar{height:9px;background:var(--s3);border-radius:99px;overflow:hidden;margin-top:13px}
+.kbar i{display:block;height:100%;background:var(--green);border-radius:99px;transition:width .3s}
+.kbar.over i{background:var(--terra)}
+.m3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+.m3 .lab{font-size:12.5px;font-weight:700;color:var(--ink)}
+.m3 .v{font-size:14px;font-weight:800;color:var(--ink);font-family:var(--mono);margin-top:3px}
+.m3 .v s{text-decoration:none;font-size:11.5px;color:var(--ink3);font-weight:600}
+.m3 .b{height:5px;background:var(--s3);border-radius:99px;overflow:hidden;margin-top:7px}
+.m3 .b i{display:block;height:100%;border-radius:99px}
+.mealrow{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px}
+.mealrow .hd{display:flex;align-items:center;gap:11px}
+.mealrow .hd i{flex:0 0 34px;height:34px;border-radius:11px;background:var(--mint);color:var(--green-d);display:flex;align-items:center;justify-content:center}
+.mealrow .hd i svg{width:18px;height:18px}
+.mealrow .hd .nm{flex:1;min-width:0}
+.mealrow .hd .nm b{display:block;font-size:14.5px;font-weight:800;color:var(--ink)}
+.mealrow .hd .nm span{display:block;font-size:11.5px;color:var(--ink3);font-weight:600;margin-top:2px}
+.mealrow .hd .kc{font-family:var(--mono);font-size:14px;font-weight:800;color:var(--ink)}
+.mealrow .plan{font-size:12.5px;color:var(--ink2);margin-top:10px;line-height:1.5;background:var(--s2);border-radius:11px;padding:10px 12px}
+.mealrow .items{margin-top:9px}
+.fitem{display:flex;align-items:center;gap:9px;padding:8px 0;border-top:1px solid var(--line)}
+.fitem .n{flex:1;min-width:0;font-size:13px;color:var(--ink)}
+.fitem .n em{display:block;font-style:normal;font-size:10.5px;color:var(--ink3);font-family:var(--mono);margin-top:2px}
+.fitem .k{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--ink)}
+.fitem .x{color:var(--ink3);font-size:17px;padding:0 3px;line-height:1}
+.mbtns{display:flex;gap:8px;margin-top:11px}
+.mbtns button{flex:1;border-radius:99px;padding:10px 0;font-size:12.5px;font-weight:700}
+.mbtns .pri{background:var(--green);color:#fff}
+.mbtns .sec{background:var(--s2);color:var(--ink2);border:1px solid var(--line)}
+.addfood{margin-top:11px;background:var(--s2);border-radius:13px;padding:13px}
+.addfood input{width:100%;border:1px solid var(--line2);background:#fff;border-radius:10px;padding:10px;font-size:14px;margin-bottom:8px}
+.addfood .r4{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.addfood .r4 input{margin-bottom:0;text-align:center;font-family:var(--mono);padding:9px 4px}
+.addfood label{font-size:10.5px;color:var(--ink3);font-weight:600;display:block;margin-bottom:4px;text-align:center}
+/* ---------- แบนเนอร์เตือน ---------- */
+.alert{border-radius:18px;padding:16px 17px;margin-top:20px;border:1px solid #F6DCD1;background:#FDF1EC}
+.alert.ok{border-color:#CCE6D6;background:#EDF6F0}
+.alert .ah{display:flex;align-items:center;gap:10px;font-size:14.5px;font-weight:800;color:#B8501F}
+.alert.ok .ah{color:#2C7A4C}
+.alert .ah svg{width:20px;height:20px;flex:0 0 20px}
+.alert ul{margin:11px 0 0;padding:0;list-style:none}
+.alert li{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid rgba(184,80,31,.14);font-size:13px;color:#8F3D1A}
+.alert li b{flex:1;font-weight:600}
+.alert li button{background:#fff;border:1px solid #F0CDBC;color:#B8501F;border-radius:99px;padding:6px 14px;font-size:12px;font-weight:700}
+.alert .sub{font-size:12px;margin-top:9px;color:#2C7A4C}
+/* ---------- การ์ดคาร์ดิโอ ---------- */
+.cardio{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px}
+.cardio .ch{display:flex;align-items:center;gap:11px}
+.cardio .ch i{flex:0 0 40px;height:40px;border-radius:13px;background:var(--mint);color:var(--green-d);display:flex;align-items:center;justify-content:center}
+.cardio .ch i svg{width:21px;height:21px}
+.cardio .ch .t{flex:1}
+.cardio .ch .t b{display:block;font-size:15px;font-weight:800;color:var(--ink)}
+.cardio .ch .t span{display:block;font-size:11.5px;color:var(--ink3);font-weight:600;margin-top:2px}
+.cardio .ch .mn{font-family:var(--mono);font-size:19px;font-weight:800;color:var(--green-d)}
+.cardio dl{margin:13px 0 0;display:grid;grid-template-columns:auto 1fr;gap:7px 12px;font-size:12.5px}
+.cardio dt{color:var(--ink3);font-weight:700;white-space:nowrap}
+.cardio dd{margin:0;color:var(--ink2);line-height:1.5}
+.cardio .alt{margin-top:11px;background:var(--s2);border-radius:11px;padding:10px 12px;font-size:12.5px;color:var(--ink2);line-height:1.5}
+.cdone{display:flex;gap:8px;margin-top:12px;align-items:center}
+.cdone input{width:74px;border:1px solid var(--line2);background:#fff;border-radius:10px;padding:10px;font-family:var(--mono);text-align:center;font-size:15px}
+.cdone button{flex:1;border-radius:99px;padding:11px;font-size:13px;font-weight:700;background:var(--green);color:#fff}
+.cdone button.done{background:#EDF6F0;color:#2C7A4C;border:1px solid #CCE6D6}
+/* ---------- สเต็ป ---------- */
+.step{display:flex;gap:15px;background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:10px;position:relative}
+.step.ok{border-color:var(--line);background:var(--s2)}
+.step .no{flex:0 0 30px;height:30px;border-radius:50%;background:transparent;color:var(--ink3);
+  border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;font-weight:500;font-size:13px;font-family:var(--serif)}
+.step.ok .no{background:var(--ink);color:#F7F4EE;border-color:var(--ink)}
+.step.now .no{background:var(--green);color:#fff;border-color:var(--green)}
+.step .bd{flex:1;min-width:0}
+.step .bd b{display:block;font-size:16px;font-weight:600;letter-spacing:.005em;font-family:var(--serif)}
+.step .bd .en{display:block;font-size:9.5px;color:var(--ink3);font-weight:500;margin-top:3px;letter-spacing:.16em;text-transform:uppercase}
+.step .bd .ds{display:block;font-size:13px;color:var(--ink2);margin-top:7px;line-height:1.5}
+.step .act{margin-top:11px}
+.step .req{position:absolute;top:17px;right:17px;font-size:8.5px;font-weight:600;letter-spacing:.14em;
+  padding:4px 10px;border-radius:99px;border:1px solid var(--terra);color:var(--terra);text-transform:uppercase}
+.step .req.opt{border-color:var(--line2);color:var(--ink3)}
+h2 .en{display:block;font-size:9.5px;font-weight:500;color:var(--ink3);letter-spacing:.18em;margin-top:4px;text-transform:uppercase}
+.tile em{display:block;font-style:normal;font-size:8.5px;color:var(--ink3);font-weight:500;margin-top:2px;letter-spacing:.14em;text-transform:uppercase}
+nav button em{display:block;font-style:normal;font-size:7.5px;opacity:.65;letter-spacing:.14em;text-transform:uppercase;margin-top:1px}
+.dataq{display:flex;gap:9px;align-items:center;background:var(--s2);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:12.5px;color:var(--ink2);line-height:1.6;margin-top:11px}
+.miss{color:var(--ink3);font-weight:600}
+/* ---------- เมนูไอคอน ---------- */
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:var(--s1);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.tile{background:transparent;border:0;border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:18px 6px 16px;text-align:center;position:relative;transition:background .12s}
+.tile:nth-child(3n){border-right:0}
+.tile:nth-child(n+4){border-bottom:0}
+.tile:active{background:var(--s2)}
+.tile i{display:flex;align-items:center;justify-content:center;width:38px;height:38px;margin:0 auto 10px;
+  border-radius:50%;border:1px solid var(--line2);color:var(--red)}
+.tile i svg{width:19px;height:19px}
+.tile b{display:block;font-size:12.5px;font-weight:600;color:var(--ink)}
+.tile span{display:block;font-size:10.5px;color:var(--ink3);margin-top:4px;font-weight:400}
+.tile.ok i{border-color:var(--red);background:var(--red);color:#FFFDFA}
+.c1,.c2,.c3,.c4,.c5,.c6{background:transparent}
+.greet{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.greet b{display:block;font-size:21px;font-weight:600;letter-spacing:.005em;font-family:var(--serif)}
+.greet span{display:block;font-size:11px;color:var(--ink3);margin-top:4px;font-weight:400;letter-spacing:.06em}
+.prog{display:flex;align-items:center;gap:13px}
+.prog .pbar{flex:1;height:3px;background:var(--s3);overflow:hidden}
+.prog .pbar i{display:block;height:100%;background:var(--red);transition:width .3s}
+.prog b{font-family:var(--mono);font-size:16px;font-weight:800}
+/* ---------- ชั้นการกรอก ---------- */
+.lab{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:.09em;padding:5px 12px;border-radius:99px;margin-bottom:9px}
+.lab.must{background:var(--terra);color:#fff}
+.lab.opt{background:var(--s2);color:var(--ink3);border:1px solid var(--line)}
+.bigbtn{display:block;width:100%;padding:17px;border-radius:99px;font-weight:600;font-size:15px;
+  background:var(--green);color:#fff;box-shadow:0 6px 16px rgba(95,127,79,.28);border-radius:99px;font-weight:700;font-size:15px}
+.bigbtn.done{background:#EDF6F0;color:#2C7A4C;border:1px solid #CCE6D6;box-shadow:none}
+.bigbtn:active{transform:scale(.985)}
+details{margin-top:11px}
+summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:16px 18px;background:var(--s1);border:1px solid var(--line);border-radius:14px;font-size:13px;color:var(--ink2);font-weight:600}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"＋";color:var(--green);font-size:15px;font-weight:600}
+details[open] summary{border-radius:14px 14px 0 0;border-bottom:0}
+details[open] summary:after{content:"－"}
+details>.card{border-radius:0 0 14px 14px;margin-top:0;border-top:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.two .mini{background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:16px}
+.two .mini span{display:block;font-size:9.5px;color:var(--ink3);font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+.two .mini b{display:block;font-family:var(--serif);font-size:30px;font-weight:600;letter-spacing:0;margin-top:6px}
+.hrow{display:flex;align-items:center;justify-content:space-between;gap:12px;position:relative}
+.days{display:flex;align-items:baseline;gap:7px;margin-top:2px}
+.days b{font-family:var(--serif);font-size:56px;font-weight:600;letter-spacing:-.02em;line-height:1;color:#F7F4EE}
+.days span{font-size:11px;color:#B9AF9E;font-weight:500;letter-spacing:.1em}
+.sesh{margin-top:20px;padding-top:18px;border-top:1px solid rgba(247,244,238,.16);position:relative}
+.sesh .st{font-size:9.5px;letter-spacing:.18em;color:#B9AF9E;font-weight:500;text-transform:uppercase}
+.pillrow{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.pill{font-size:11.5px;font-weight:500;padding:6px 13px;border-radius:99px;background:transparent;border:1px solid var(--line2);color:var(--ink3)}
+.pill.on{background:#EDF6F0;border-color:#CCE6D6;color:#2C7A4C;font-weight:600}
+.empty{color:var(--ink3);font-size:13.5px;padding:24px 0;text-align:center}
+.saved{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(88px + env(safe-area-inset-bottom));
+  background:var(--ink);color:#F7F4EE;padding:9px 16px;border-radius:99px;font-size:13px;font-weight:700;
+  opacity:0;transition:opacity .2s;pointer-events:none;z-index:40}
+.saved.on{opacity:1}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+      <circle cx="20" cy="20" r="18.5" stroke="#A61B18" stroke-width="1.2"/>
+      <circle cx="20" cy="20" r="15" stroke="#A61B18" stroke-width="0.6" opacity=".45"/>
+      <path d="M13 13.5 Q20 9 27 13.5" stroke="#A61B18" stroke-width="1.4" stroke-linecap="round"/>
+      <path d="M14.5 17.5 L17 27 M20 16.5 L20 27.5 M25.5 17.5 L23 27" stroke="#A61B18" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="20" cy="31" r="1.6" fill="#A61B18"/>
+    </svg>
+    <div>
+      <div class="w">MONSTER<i>GOLD</i>X</div>
+      <div class="tag">BUILD YOUR MONSTER · BECOME GOLD</div>
+    </div>
+    <div class="rt"><b id="hDate">—</b><span id="hMeta">—</span></div>
+  </div>
+  <div class="track"><i id="tFill"></i><u id="tM1"></u><u id="tM2"></u><u id="tM3"></u></div>
+</header>
+
+<main>
+  <section class="view on" id="v-today"></section>
+  <section class="view" id="v-lift"></section>
+  <section class="view" id="v-eat"></section>
+  <section class="view" id="v-weigh"></section>
+  <section class="view" id="v-plan"></section>
+</main>
+
+<div class="timer" id="timer">
+  <div class="n" id="tmN">00:00</div>
+  <div class="p"><i id="tmP"></i></div>
+  <button onclick="stopTimer()">หยุด</button>
+</div>
+<div class="saved" id="toast">บันทึกแล้ว</div>
+
+<nav>
+  <button class="on" data-v="today"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M9.5 20v-5.5h5V20"/></svg>วันนี้<em>Today</em></button>
+  <button data-v="lift"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M3 9v6M6 7v10M18 7v10M21 9v6M6 12h12"/></svg>เล่น<em>Train</em></button>
+  <button data-v="eat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v7a2.5 2.5 0 0 0 5 0V3M8.5 12.5V21"/><path d="M17.5 3c-1.7 1.6-2.5 3.7-2.5 6 0 1.7.7 2.8 2.5 3V21"/></svg>กิน<em>Food</em></button>
+  <button data-v="weigh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8.5 15 12 9.5l3.5 5.5"/><path d="M12 9.5V7.5"/></svg>ผล<em>Report</em></button>
+  <button data-v="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>แผน<em>Plan</em></button>
+</nav>
+
+<script>
+/* =====================================================================
+   ภาพประกอบท่า — วาดเป็น SVG ในตัวแอป ไม่ต้องโหลดจากอินเทอร์เน็ต
+   ===================================================================== */
+const G="#C85F35", I="#7C8A9C";
+function fig(inner){
+  return `<svg viewBox="0 0 120 92" fill="none" stroke="${I}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;
+}
+const AR=(d)=>`<path d="${d}" stroke="${G}" stroke-width="2.4" marker-end="url(#ah)"/>`;
+const DEFS=`<defs><marker id="ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="${G}"/></marker></defs>`;
+const H=(x,y,r)=>`<circle cx="${x}" cy="${y}" r="${r||6}"/>`;
+
+const FIGS={
+pulldown:fig(DEFS+`<path d="M22 22h58M52 22v-8"/>${H(52,46)}<path d="M52 52v16M52 68l-9 12M52 68l9 12M52 56l-16-28M52 56l16-28"/><path d="M36 74h32"/>`+AR("M96 26v26")),
+pullup:fig(DEFS+`<path d="M18 16h84"/>${H(60,40)}<path d="M60 34 44 16M60 34 76 16M60 46v18M60 64l-8 14M60 64l8 14"/>`+AR("M100 60V34")),
+row_seat:fig(DEFS+`<path d="M18 40h10M18 30v20"/>${H(66,40)}<path d="M66 46v16M66 62l-14 8M66 62l10 12M66 50 30 40"/><path d="M50 72h34"/>`+AR("M44 22h26")),
+row_bent:fig(DEFS+`${H(30,34)}<path d="M36 38 66 48M66 48v22M66 70l-8 12M66 70l8 12M44 42v20"/><path d="M30 62h28"/>`+AR("M44 60V40")),
+pullover:fig(DEFS+`<path d="M24 68h72"/>${H(40,58)}<path d="M46 58h36M58 58 34 34"/><path d="M26 30h18"/>`+AR("M56 24A30 30 0 0 1 84 44")),
+shrug:fig(DEFS+`${H(60,22)}<path d="M60 28v30M60 58l-9 22M60 58l9 22M44 32v20M76 32v20M44 32h-8M44 32h8M76 32h-8M76 32h8"/><path d="M34 50h20M66 50h20"/>`+AR("M100 46V24")),
+ohp:fig(DEFS+`${H(60,50)}<path d="M60 56v14M60 70l-9 12M60 70l9 12M60 54 42 30M60 54 78 30M32 30h20M68 30h20"/>`+AR("M100 46V22")),
+lateral:fig(DEFS+`${H(60,28)}<path d="M60 34v26M60 60l-8 22M60 60l8 22M60 40 30 44M60 40 90 44M22 40h16M82 40h16"/>`+AR("M24 66 18 42")+AR("M96 66l6-24")),
+rear_fly:fig(DEFS+`${H(26,32)}<path d="M32 36 62 46M62 46v22M62 68l-8 12M62 68l8 12M46 42 30 22M46 42 62 22"/><path d="M22 18h14M56 18h14"/>`+AR("M84 32 62 24")),
+face_pull:fig(DEFS+`<path d="M18 26v40"/>${H(66,34)}<path d="M66 40v22M66 62l-8 18M66 62l8 18M60 34 22 40M60 40 22 46"/>`+AR("M40 18h32")),
+curl:fig(DEFS+`${H(60,24)}<path d="M60 30v28M60 58l-8 24M60 58l8 24M60 36 46 54M60 36 74 54"/><path d="M38 56h44"/>`+AR("M92 62A26 26 0 0 0 84 36")),
+hammer:fig(DEFS+`${H(60,24)}<path d="M60 30v28M60 58l-8 24M60 58l8 24M60 36 44 52M60 36 76 52"/><path d="M40 46v12M76 46v12"/>`+AR("M94 60A24 24 0 0 0 88 36")),
+pushdown:fig(DEFS+`<path d="M22 14v14M22 28h20"/>${H(62,28)}<path d="M62 34v26M62 60l-8 22M62 60l8 22M62 40 44 46M62 40 44 58"/><path d="M36 56h16"/>`+AR("M92 36v22")),
+tri_oh:fig(DEFS+`${H(60,30)}<path d="M60 36v24M60 60l-8 22M60 60l8 22M60 42 44 24M60 42 76 24"/><path d="M40 18h40"/>`+AR("M94 34A26 26 0 0 0 86 12")),
+bench:fig(DEFS+`<path d="M18 64h74M28 64v14M84 64v14"/>${H(32,54)}<path d="M38 54h40M56 54 50 28"/><path d="M34 24h34"/>`+AR("M84 44V22")),
+fly:fig(DEFS+`<path d="M18 66h74"/>${H(32,56)}<path d="M38 56h42M58 56 34 36M58 56 82 36"/>`+AR("M32 26A32 32 0 0 1 84 26")),
+dips:fig(DEFS+`<path d="M26 20v54M94 20v54"/>${H(60,34)}<path d="M60 40v18M60 58l-8 16M60 58l8 16M60 42 30 30M60 42 90 30"/>`+AR("M102 34v22")),
+squat:fig(DEFS+`${H(60,22)}<path d="M60 28v18M60 46 46 58 50 80M60 46 74 58 70 80M40 32h40"/>`+AR("M100 30v28")),
+rdl:fig(DEFS+`${H(30,32)}<path d="M36 36 64 46M64 46v30M50 42v22"/><path d="M34 64h32"/>`+AR("M88 34A26 26 0 0 1 88 62")),
+leg_press:fig(DEFS+`<path d="M18 74h30M22 46 18 74"/>${H(34,46)}<path d="M40 48h24M64 48 82 34M82 34 96 44"/><path d="M90 26v30"/>`+AR("M106 40h-8")),
+leg_curl:fig(DEFS+`<path d="M20 60h56"/>${H(28,50)}<path d="M34 50h34M68 50 84 60"/><path d="M92 60v10"/>`+AR("M96 52A22 22 0 0 0 78 40")),
+calf:fig(DEFS+`${H(60,22)}<path d="M60 28v28M60 56v20M52 76h18M46 34v22M74 34v22"/><path d="M40 54h14M66 54h14"/>`+AR("M98 58V32")),
+crunch_c:fig(DEFS+`<path d="M18 14v16"/>${H(58,34)}<path d="M58 40 62 60 48 74M62 60l14 12M52 34 24 28"/>`+AR("M88 34A26 26 0 0 1 84 62")),
+leg_raise:fig(DEFS+`<path d="M18 14h84"/>${H(60,32)}<path d="M60 26V16M60 38v14M60 52 44 60M60 52 46 68"/>`+AR("M84 74A28 28 0 0 0 80 44")),
+ab_wheel:fig(DEFS+`${H(34,40)}<path d="M40 44 66 54M66 54 60 74M52 48l-4 26"/><circle cx="88" cy="62" r="10"/><path d="M66 54h12"/>`+AR("M96 40h-26")),
+plank:fig(DEFS+`${H(26,46)}<path d="M32 50h48M80 50 92 72M36 50 30 72M42 50v22"/><path d="M24 72h74"/>`+AR("M56 34h0M40 36h32")),
+side_plank:fig(DEFS+`${H(28,52)}<path d="M34 56 88 70M34 56 26 74M50 60V36"/><path d="M20 76h80"/>`+AR("M50 30V16")),
+pallof:fig(DEFS+`<path d="M18 22v46"/>${H(66,30)}<path d="M66 36v26M66 62l-8 18M66 62l8 18M62 42 22 44"/>`+AR("M90 44h-18")),
+woodchop:fig(DEFS+`<path d="M18 16v18"/>${H(62,30)}<path d="M62 36v26M62 62l-8 18M62 62l8 18M58 40 24 24"/>`+AR("M40 20 84 66")),
+vacuum:fig(DEFS+`${H(60,22)}<path d="M60 28c-8 8-8 18 0 26M60 28c8 8 8 18 0 26M60 54v22M52 76h16M46 34v18M74 34v18"/>`+AR("M92 46H74")+AR("M28 46h18")),
+dead_bug:fig(DEFS+`<path d="M20 68h80"/>${H(34,58)}<path d="M40 60h36M52 60 40 40M76 60 88 42M76 60 66 44"/>`+AR("M46 32 56 46")),
+situp:fig(DEFS+`<path d="M20 74 96 56"/>${H(38,52)}<path d="M44 56 68 62 84 48M44 56l-4 14"/>`+AR("M56 34A26 26 0 0 1 42 26")),
+pushup:fig(DEFS+`${H(26,40)}<path d="M32 44h44M76 44 88 70M40 44v26M62 44v26"/><path d="M22 72h80"/>`+AR("M56 26v14")),
+walk:fig(DEFS+`${H(46,22)}<path d="M46 28v22M46 50 34 74M46 50l14 24M46 34 30 44M46 34l16 6"/><path d="M14 82h92"/>`+AR("M76 40h20"))
+};
+const PATS=[
+ [/straight-arm|pullover/i,"pullover"],
+ [/lat pulldown|pulldown/i,"pulldown"],[/pull-up|pull up|pullup/i,"pullup"],
+ [/cable row|chest-supported|seated cable|single-arm cable row/i,"row_seat"],
+ [/barbell row|t-bar|pendlay|row/i,"row_bent"],[/shrug/i,"shrug"],
+ [/shoulder press|machine shoulder|ohp|overhead press/i,"ohp"],
+ [/lateral raise|y-raise|upright row/i,"lateral"],
+ [/rear delt|reverse pec/i,"rear_fly"],[/face pull/i,"face_pull"],
+ [/preacher|ez-bar curl|barbell curl|cable curl|incline db curl|curl \(/i,"curl"],
+ [/hammer|reverse curl/i,"hammer"],
+ [/pushdown/i,"pushdown"],[/overhead cable triceps|skull|rope overhead/i,"tri_oh"],
+ [/incline db press|incline barbell|bench press|close-grip/i,"bench"],
+ [/fly/i,"fly"],[/dips/i,"dips"],
+ [/squat/i,"squat"],[/romanian|deadlift|rdl/i,"rdl"],
+ [/leg press/i,"leg_press"],[/leg curl/i,"leg_curl"],[/calf/i,"calf"],
+ [/cable crunch/i,"crunch_c"],[/leg raise|knee raise/i,"leg_raise"],
+ [/ab wheel/i,"ab_wheel"],[/side plank/i,"side_plank"],[/plank/i,"plank"],
+ [/pallof/i,"pallof"],[/woodchop/i,"woodchop"],[/vacuum/i,"vacuum"],
+ [/dead bug/i,"dead_bug"],[/sit-up|crunch/i,"situp"],[/push-up|วิดพื้น/i,"pushup"],
+ [/curl/i,"curl"],[/press/i,"ohp"],[/raise/i,"lateral"]
+];
+function figFor(n){ for(const [re,k] of PATS) if(re.test(n)) return FIGS[k]; return FIGS.walk }
+
+/* =====================================================================
+   ข้อมูลโปรแกรม
+   ===================================================================== */
+const D0="2026-09-15", DEND="2027-06-14";
+const TH_D=["อาทิตย์","จันทร์","อังคาร","พุธ","พฤหัสบดี","ศุกร์","เสาร์"];
+const TH_M=["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+
+const ABS={
+ A:[["Hanging Leg Raise","3","10–15","ม้วนสะโพกขึ้น ไม่ใช่แค่ยกขา"],
+    ["Cable Crunch ถ่วงน้ำหนัก","3","12–15","เพิ่มน้ำหนักทุก 2 สัปดาห์"],
+    ["Weighted Plank","3","45 วิ","วางแผ่นน้ำหนักบนหลัง"]],
+ B:[["Ab Wheel Rollout","3","8–12","เริ่มจากคุกเข่า หลังห้ามแอ่น"],
+    ["Pallof Press","3","12/ข้าง","ต้านการบิด สร้างความแน่นของแกน"],
+    ["Dead Bug","3","12/ข้าง","กดหลังล่างติดพื้นตลอด"]],
+ C:[["Decline Reverse Crunch","3","15","เน้นท้องล่าง"],
+    ["Cable Woodchop","3","12/ข้าง","สร้างกล้ามเนื้อข้างลำตัว"],
+    ["Stomach Vacuum","3","ค้าง 20 วิ","ทำให้เอวแน่น ร่อง 11 คมขึ้น"]],
+ D:[["Weighted Decline Sit-up","3","12","ถือแผ่นน้ำหนักที่อก"],
+    ["Hanging Knee Raise บิดสะโพก","3","12/ข้าง","สร้างความคมของร่อง 11"],
+    ["Side Plank","3","40 วิ/ข้าง",""],
+    ["Stomach Vacuum","3","ค้าง 20 วิ",""]]
+};
+const W={
+0:{n:"หลัง (ความกว้าง) + ไหล่หลัง",e:[
+ ["Wide-Grip Lat Pulldown",4,"8–12","2",120,"ตั้งอกขึ้น ดึงศอกลงหาสะโพก ไม่เหวี่ยงตัว"],
+ ["Chest-Supported Row",4,"10–12","1–2",90,"บีบสะบักค้าง 1 วิ ทุกครั้ง"],
+ ["Single-Arm Cable Row",3,"12/ข้าง","1",75,"เริ่มข้างขวาก่อน ซ้ายทำเท่าขวา"],
+ ["Straight-Arm Pulldown",3,"12–15","1",60,"แขนตึงตลอด รู้สึกที่ปีก"],
+ ["Reverse Pec Deck",4,"15–20","0–1",45,"ท่าสำคัญของไหล่หลัง อย่าข้าม"],
+ ["Face Pull",3,"15–20","0–1",45,"ดึงเชือกมาที่หน้าผาก หมุนไหล่ออก"]]},
+1:{n:"ไหล่ + ไตรเซ็ป",e:[
+ ["Seated DB Shoulder Press",4,"8–12","2",120,"ท่าหลักของวัน ทำตอนสดที่สุด"],
+ ["DB Lateral Raise",4,"12–20","0–1",60,"ยกไม่เกินระดับไหล่ ค้างบน 1 วิ"],
+ ["Cable Lateral Raise (เอียงตัวออก)",3,"15–20","0–1",45,"มุมนี้ให้แรงต้านต่อเนื่องกว่าดัมเบล"],
+ ["Cable Y-Raise",3,"12–15","1",60,"ศอกนำ ไม่ยกสูงเกินไหล่"],
+ ["Overhead Cable Triceps Ext",4,"10–12","1",75,"ยืดหัวยาวของไตรเซ็ปให้สุด"],
+ ["Rope Pushdown",3,"12–15","0–1",45,"กางเชือกออกตอนล่างสุด"],
+ ["Close-Grip Bench / Dips",3,"8–12","1–2",90,"ถ้าไหล่เจ็บให้ใช้ Close-Grip"]]},
+2:{n:"ขา + แกนกลาง",e:[
+ ["Back Squat / Hack Squat",4,"6–10","2",180,"ลงให้ต้นขาขนานพื้นเป็นอย่างน้อย"],
+ ["Romanian Deadlift",3,"8–10","2",120,"หลังตรง ดันสะโพกไปหลัง"],
+ ["Leg Press",3,"12–15","1",90,"ไม่ล็อกเข่าสุด"],
+ ["Seated Leg Curl",3,"12–15","1",60,"ท่านั่งยืดแฮมได้ดีกว่าท่านอน"],
+ ["Standing Calf Raise",4,"10–15","0–1",45,"ค้างบนสุด 2 วิ ลงช้า"]]},
+3:{n:"หลัง (ความหนา) + ไบเซ็ป",e:[
+ ["Barbell Row / T-Bar Row",4,"6–10","2",120,"ลำตัวเอียง 45° ดึงมาที่ท้องน้อย"],
+ ["Pull-Up (ถ่วง/ช่วย)",4,"6–10","1–2",120,"ทำได้ 10 ครั้งสบายเมื่อไหร่ ให้เริ่มถ่วงน้ำหนัก"],
+ ["Seated Cable Row (จับกว้าง)",3,"10–12","1",90,"ดึงมาที่ซี่โครงล่าง ไม่เอนตัวไปหลัง"],
+ ["DB Shrug",3,"12–15","0–1",60,"ค้างบนสุด 2 วิ ไม่หมุนไหล่"],
+ ["EZ-Bar Curl",4,"8–12","1",75,"ศอกติดลำตัว ไม่เหวี่ยง"],
+ ["Incline DB Curl",3,"10–12","0–1",60,"ยืดไบเซ็ปสุด — สร้างความยาวของกล้าม"],
+ ["Hammer Curl",3,"12–15","0–1",45,"สร้าง brachialis ทำให้แขนดูหนา"]]},
+4:{n:"อก + ไหล่ข้าง + แขน",e:[
+ ["Incline DB Press",3,"8–12","2",120,"อกคือจุดแข็ง — คุมไว้แค่นี้พอ"],
+ ["Cable Fly",3,"12–15","1",60,"บีบสุดกลางลำตัว"],
+ ["Machine Shoulder Press",3,"10–12","1",90,"รอบสองของไหล่ในสัปดาห์"],
+ ["Lateral Raise (Myo-Rep)",3,"หนัก1+mini3×5","0",20,"เพิ่ม volume ไหล่ข้างโดยไม่กินเวลา"],
+ ["Rear Delt Fly (เคเบิลไขว้)",3,"15–20","0–1",45,"รอบสองของไหล่หลัง"],
+ ["Preacher Curl",3,"10–12","0–1",60,"เน้นช่วงล่างของไบเซ็ป"],
+ ["Single-Arm Cable Pushdown",3,"12–15/ข้าง","0–1",45,"เริ่มข้างขวา แก้ความไม่สมดุล"]]},
+5:{n:"แขน / ไหล่ Specialization",e:[
+ ["Cable Lateral Raise",4,"15–20","0–1",45,"ไหล่ข้างรอบที่ 3 ของสัปดาห์"],
+ ["Barbell Curl (พิงกำแพง)",3,"8–12","1",60,"พิงกำแพงกันโกง"],
+ ["Cable Curl (สายต่ำ)",3,"12–15","0–1",45,"แรงต้านต่อเนื่อง"],
+ ["Skull Crusher (EZ)",3,"10–12","1",60,"ลดหลังศีรษะเล็กน้อยเพื่อยืดสุด"],
+ ["Rope Overhead Extension",3,"12–15","0–1",45,""],
+ ["Reverse Curl",2,"15","0–1",45,"สร้างปลายแขน ทำให้แขนดูเต็ม"]]}
+};
+const MAINT={
+0:{n:"หลัง + ไหล่หลัง",e:[["Lat Pulldown",3,"8–12","2",120,""],["Chest-Supported Row",3,"10–12","1",90,""],["Reverse Pec Deck",3,"15–20","0–1",45,""],["Face Pull",3,"15–20","0–1",45,""]]},
+1:{n:"ไหล่ + แขน",e:[["Seated DB Shoulder Press",3,"8–12","2",120,""],["DB Lateral Raise",3,"12–20","0–1",60,""],["Cable Lateral Raise",3,"15–20","0–1",45,""],["EZ-Bar Curl",3,"8–12","1",60,""],["Rope Pushdown",3,"12–15","0–1",45,""]]},
+3:{n:"หลัง + ไบเซ็ป",e:[["Barbell Row",3,"6–10","2",120,""],["Pull-Up",3,"6–10","1–2",120,""],["Incline DB Curl",3,"10–12","0–1",60,""],["Hammer Curl",3,"12–15","0–1",45,""]]},
+4:{n:"อก + ไหล่ข้าง + ไตรเซ็ป",e:[["Incline DB Press",3,"8–12","2",120,""],["Cable Fly",3,"12–15","1",60,""],["Lateral Raise",3,"15–20","0–1",45,""],["Overhead Cable Triceps Ext",3,"10–12","1",60,""],["Rope Pushdown",3,"12–15","0–1",45,""]]},
+5:{n:"ขา + ท้อง",e:[["Hack Squat",3,"8–12","2",150,""],["Romanian Deadlift",3,"10","2",120,""],["Leg Press",3,"12–15","1",90,""],["Standing Calf Raise",3,"12–15","0–1",45,""]]}
+};
+const MEALS={
+1:[["07:00","มื้อ 1","ไข่ต้ม 2 ฟอง + ไข่ขาว 3 ฟอง + ข้าวกล้อง 1½ ทัพพี + ผักลวก + กาแฟดำ","520 kcal · P40 C62 F13"],
+   ["12:00","มื้อ 2","ข้าวกล้อง 2 ทัพพี + อกไก่/ปลาย่าง 150 g + ต้มยำน้ำใส + ผักผัดน้ำมันน้อย","640 kcal · P46 C78 F15"],
+   ["15:30","มื้อว่าง","กรีกโยเกิร์ต 0% 150 g + ผลไม้ 1 กำมือ + อัลมอนด์ 10 เม็ด","260 kcal · P18 C24 F10"],
+   ["17:15","ก่อนเล่น","กล้วย 1 ลูก + ข้าวโพดต้ม 1 ฝัก","250 kcal · P8 C52 F2"],
+   ["19:45","หลังเล่น","เวย์ 1 สกู๊ป + ข้าว/มันหวาน 1 ทัพพี","290 kcal · P28 C38 F3"],
+   ["21:00","มื้อเย็น","ปลา/เนื้อสันใน 150 g + ยำผัก + ข้าวกล้อง ½ ทัพพี","480 kcal · P40 C25 F22"]],
+2:[["07:00","มื้อ 1","ไข่ต้ม 2 + ไข่ขาว 4 + ข้าวกล้อง 1 ทัพพี + ผักลวก + กาแฟดำ","460 kcal · P42 C48 F12"],
+   ["12:00","มื้อ 2","ข้าวกล้อง 1½ ทัพพี + อกไก่/ปลา 170 g + ต้มยำน้ำใส + ผักสด","610 kcal · P50 C66 F14"],
+   ["15:30","มื้อว่าง","เวย์ 1 สกู๊ป + แอปเปิ้ล 1 ลูก","230 kcal · P26 C25 F3"],
+   ["17:15","ก่อนเล่น","กล้วย 1 ลูก + ข้าวโพดต้ม ½ ฝัก","170 kcal · P4 C38 F1"],
+   ["19:45","หลังเล่น","เวย์ 1 สกู๊ป + ข้าว/มันหวาน 1 ทัพพี","280 kcal · P27 C36 F3"],
+   ["21:00","มื้อเย็น","ปลา/เนื้อสันใน 170 g + สลัดน้ำใส + ข้าวกล้อง ½ ทัพพี","450 kcal · P42 C22 F18"]],
+3:[["07:00","มื้อ 1","ไข่ขาว 6 + ไข่แดง 1 + ข้าวกล้อง 1 ทัพพี + ผักลวก + กาแฟดำ","420 kcal · P42 C48 F8"],
+   ["12:00","มื้อ 2","ข้าวกล้อง 1½ ทัพพี + อกไก่/ปลานึ่ง 180 g + แกงจืด + ผักสด","580 kcal · P52 C64 F10"],
+   ["15:30","มื้อว่าง","เวย์ 1 สกู๊ป + ผลไม้ 1 กำมือ","220 kcal · P26 C22 F3"],
+   ["17:15","ก่อนเล่น","กล้วย 1 ลูก","105 kcal · P1 C27 F0"],
+   ["19:45","หลังเล่น","เวย์ 1 สกู๊ป + ข้าว 1 ทัพพี","270 kcal · P27 C34 F2"],
+   ["21:00","มื้อเย็น","ปลา/อกไก่ 180 g + ยำผัก + ข้าวกล้อง ½ ทัพพี","420 kcal · P45 C20 F15"]]
+};
+const OK=["อกไก่ย่าง","ปลาเผา","ปลานึ่งมะนาว","ปลานิล","ปลาทู","เนื้อสันใน","ไข่ขาว","เต้าหู้ขาว","ต้มยำน้ำใส","แกงส้ม","แกงจืด","ลาบไม่ติดมัน","ส้มตำไม่ใส่น้ำตาล","ก๋วยเตี๋ยวน้ำใส","ข้าวต้มปลา","สุกี้น้ำ","ข้าวกล้อง","ข้าวไรซ์เบอร์รี่","มันหวาน","ข้าวโพด","ฟักทอง","กล้วย","ข้าวโอ๊ต"];
+const NO=["เบียร์และแอลกอฮอล์ทุกชนิด","เครื่องในสัตว์","ซาร์ดีน/แอนโชวี่","น้ำต้มกระดูก","กุ้งหอยปลาหมึกปริมาณมาก","ชานมไข่มุก","กาแฟปั่น","น้ำอัดลม","น้ำผลไม้กล่อง","ข้าวมันไก่","ข้าวขาหมู","ของทอดทุกชนิด","หมูกระทะ","ชาบูน้ำข้น"];
+const CHECK=[["4","2026-10-12",75.5,20.0],["8","2026-11-09",73.5,18.0],["12","2026-12-07",71.5,16.0],
+ ["16","2027-01-04",70.5,15.0],["20","2027-02-01",69.0,13.5],["24","2027-03-01",68.0,12.0],
+ ["28","2027-03-29",67.2,10.8],["สงกรานต์","2027-04-13",67.0,10.0],["M4","2027-05-17",68.5,11.5],["M8","2027-06-14",69.0,12.0]];
+const WEEKNOTE={1:"สัปดาห์แรก — ตั้งน้ำหนักเริ่มต้นทุกท่า ยังไม่ต้องหนักสุด (RIR 3)",
+4:"จุดตรวจวัดที่ 1 — ชั่ง InBody + วัดรอบตัว + ถ่ายรูป",6:"สัปดาห์ Deload — ลดเซ็ตลงครึ่ง คงน้ำหนักเดิม งด HIIT",
+8:"จุดตรวจวัดที่ 2 — เป้า 73.5 kg / 18.0%",12:"Deload + Diet Break — กิน 2,600 kcal ทั้งสัปดาห์ | จุดตรวจวัดที่ 3",
+13:"เข้าเฟส 2 — เริ่มใช้ drop set / rest-pause ในท่าสุดท้ายของแต่ละกลุ่ม",16:"จุดตรวจวัดที่ 4 — เป้า 70.5 kg / 15.0%",
+18:"สัปดาห์ Deload — ลดเซ็ตลงครึ่ง",20:"จุดตรวจวัดที่ 5 — เป้า 69.0 kg / 13.5% | เจาะเลือดซ้ำ + กรดยูริก",
+22:"Diet Break — กิน 2,600 kcal ทั้งสัปดาห์",23:"เข้าเฟส 3 — ลด volume ขา เพิ่มงานไหล่และท้อง",
+24:"สัปดาห์ Deload | จุดตรวจวัดที่ 6 เป้า 68.0 kg / 12.0%",28:"จุดตรวจวัดที่ 7 — เป้า 67.2 kg / 10.8% (ควรเริ่มเห็นร่อง 11)",
+29:"สัปดาห์ Peak — ลด volume 40% จัดน้ำและโซเดียมตามโปรโตคอล"};
+const RULES=[["ห้าม","bulk — 5 เดือนที่ผ่านมาขึ้น 6.9 kg แต่เป็นกล้ามแค่ 0.7 kg",0],
+ ["บังคับ","ไหล่ข้าง 20–24 เซ็ต/สัปดาห์ ทุกสัปดาห์ — ตัวแปรที่เปลี่ยนรูปร่างมากที่สุด",1],
+ ["จำกัด","อก 6–9 เซ็ต/สัปดาห์ — จุดแข็งอยู่แล้ว เอาทรัพยากรไปที่หลัง ไหล่ แขน",1],
+ ["บังคับ","ท่าเล่นข้างเดียว เริ่มข้างขวาก่อนเสมอ แล้วให้ซ้ายทำเท่าขวา",1],
+ ["เพดาน","ลดน้ำหนักไม่เกิน 0.6 kg/สัปดาห์ — กรดยูริก 7.7 ห้ามลดเร็ว",0],
+ ["บังคับ","น้ำ 4 ลิตร/วัน (วันคาร์ดิโอยาว 4.5 ลิตร)",1],
+ ["งด","เบียร์และแอลกอฮอล์ทุกชนิดตลอดโปรแกรม — แย่ที่สุดสำหรับกรดยูริก",0],
+ ["ห้าม","fasting ยาว · คีโต · คาร์บต่ำมาก — ดันกรดยูริกและกินกล้ามเนื้อ",0],
+ ["ลด","พิวรีนสูง: เครื่องในสัตว์ · ซาร์ดีน · น้ำต้มกระดูก · กุ้งหอยปริมาณมาก",0],
+ ["บังคับ","นอน 7–8 ชม. — ต่ำกว่า 6 ชม. ประจำ โปรแกรมนี้จะไม่ได้ผลตามแผน",1],
+ ["กฎปรับ","น้ำหนักนิ่ง 2 สัปดาห์ → เพิ่มคาร์ดิโอก่อน นิ่งอีก 2 สัปดาห์ → ลดแคลอรี่ 100–150",1],
+ ["กฎหยุด","แรงตก >10% หรือ SMM ลด >0.5 kg → เพิ่มแคลอรี่กลับ 150–200 ทันที",0],
+ ["ต่อ","จบสงกรานต์ต้องทำเฟสรักษาสภาพ 8 สัปดาห์ — จุดที่พลาดมาแล้ว",1]];
+
+const day=s=>new Date(s+"T00:00:00");
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const diff=(a,b)=>Math.round((day(b)-day(a))/864e5);
+const add=(s,n)=>{const d=day(s);d.setDate(d.getDate()+n);return iso(d)};
+const fmt=s=>{const d=day(s);return d.getDate()+" "+TH_M[d.getMonth()]+" "+String((d.getFullYear()+543)%100)};
+
+function plan(ds){ return attachCardio(plan0(ds)) }
+function plan0(ds){
+  const d=day(ds), dow=(d.getDay()+6)%7;
+  const P={date:ds,dow:dow,steps:9000,water:8};
+  if(ds<D0||ds>DEND){P.kind="off";P.label="นอกช่วงโปรแกรม";P.phase=0;P.kcal=[0,0,0,0];return P}
+  if(ds<="2026-09-20"){
+    P.kind="prep";P.phase=1;P.label="เตรียมตัว";P.kcal=[2400,165,285,68];
+    P.session=(dow===6)?null:W[dow];P.vol=.5;P.abs=({0:"A",2:"B",4:"C",5:"D"})[dow]||null;
+    P.cardio="เดิน 20 นาที";P.steps=8000;
+    P.note=["ทดลองท่าทั้งหมดด้วยน้ำหนักเบา จดน้ำหนักเริ่มต้น หยุดที่ RIR 4",
+      "ถ่ายรูปหน้า/ข้าง/หลัง แสงเดียวกัน + วัดรอบไหล่ แขนซ้าย-ขวา เอว",
+      "ซ้อมท่าขาให้ฟอร์มถูก เน้นความลึก ไม่ต้องหนัก",
+      "ฝึกจับเวลาพักให้ตรง ซื้อเครื่องชั่งอาหารและตาชั่งน้ำหนัก",
+      "ทดลองท่าไหล่ข้างหลายมุมจับ เลือกมุมที่รู้สึกกล้ามชัดที่สุด",
+      "ซื้อของ + เตรียมอาหารสำหรับสัปดาห์ที่ 1 เริ่มจริงพรุ่งนี้"][diff(D0,ds)];
+    return P;
+  }
+  if(ds==="2027-04-12"||ds==="2027-04-13"){
+    P.kind="peak";P.phase=3;P.label="Peak";P.kcal=[2400,170,380,35];P.steps=6000;P.water=6;
+    P.session=ds==="2027-04-12"?{n:"Pump เบา 15 นาที",e:[["Lateral Raise (ยางยืด/ดัมเบลเบา)",3,"20","0",30,""],["Push-up",3,"15","1",30,""],["Cable Curl เบา",3,"15","0",30,""]]}:null;
+    P.abs="C";P.cardio="ไม่มี";
+    P.note=ds==="2027-04-12"?"วันโชว์ตัววันที่ 1 — คาร์บสูง เกลือปกติ จิบน้ำ กล้ามจะเต็มและเส้นเลือดขึ้น"
+      :"สงกรานต์ — ถ่ายรูปเทียบกับรูปวันที่ 16 ก.ย. 2026 แล้วชั่ง InBody รอบสุดท้าย";
+    return P;
+  }
+  if(ds>="2027-04-14"&&ds<="2027-04-18"){
+    P.kind="rest";P.phase=4;P.label="พักฟื้น";P.kcal=[2300,175,265,58];P.steps=9000;
+    P.session=null;P.abs=null;P.cardio="เดิน 30 นาที";
+    P.note="5 วันพักฟื้นหลังสงกรานต์ กินให้สนุกได้แต่ชั่งน้ำหนักทุกเช้า ห้ามเกิน 69.5 kg";
+    return P;
+  }
+  if(ds>="2027-04-19"){
+    if(ds===DEND){P.kind="end";P.phase=4;P.label="จบโปรแกรม";P.kcal=[2450,175,298,62];
+      P.session=null;P.abs=null;P.cardio="—";
+      P.note="ถ้าน้ำหนักอยู่ 67–69 kg และ PBF ไม่เกิน 12% ตลอด 8 สัปดาห์ = คุณรักษาได้จริง ค่อยคิดเรื่อง lean bulk";return P}
+    const mw=Math.floor(diff("2027-04-19",ds)/7)+1;
+    P.kcal=[[2150,175,239,55],[2150,175,239,55],[2250,175,257,58],[2250,175,257,58],
+            [2350,175,278,60],[2350,175,278,60],[2450,175,298,62],[2450,175,298,62]][mw-1];
+    P.kind="maint";P.phase=4;P.week="M"+mw;P.label="รักษาสภาพ M"+mw;P.steps=10000;
+    P.session=MAINT[dow]||null;P.vol=1;P.abs=({0:"A",4:"C",5:"B"})[dow]||null;
+    P.cardio=(dow===1||dow===4)?"LISS 30 นาที":(dow===2?"เดิน 30 นาที":"เดินอย่างเดียว");
+    P.note=(dow===0)?{1:"เริ่ม Reverse Diet — เพิ่มแคลอรี่ทีละขั้น ชั่งน้ำหนักทุกเช้า",
+      2:"น้ำหนักขึ้น 0.5–1 kg สัปดาห์แรกเป็นปกติ (ไกลโคเจนและน้ำ) ไม่ใช่ไขมัน",
+      3:"ขึ้นเป็น 2,250 — ถ้าน้ำหนักนิ่งหรือขึ้นไม่เกิน 0.2 kg/สัปดาห์ คือกำลังดี",
+      4:"จุดตรวจวัด M4 — PBF ไม่เกิน 12% และ SMM ต้องขึ้น",
+      5:"ขึ้นเป็น 2,350 — เริ่มเพิ่มน้ำหนักที่ยกได้แล้ว",
+      6:"เส้นแดง: น้ำหนักแตะ 69 kg เมื่อไหร่ ลดแคลอรี่กลับ 150 ทันที",
+      7:"ขึ้นเป็น 2,450 ≈ TDEE จริง — ระดับที่อยู่ได้ยาวโดยไม่อ้วนกลับ",
+      8:"จุดตรวจวัด M8 — ค่อยตัดสินใจว่าจะ lean bulk ต่อหรือคงสภาพ"}[mw]:"";
+    return P;
+  }
+  const wk=Math.floor(diff("2026-09-21",ds)/7)+1;
+  const ph=wk<=12?1:(wk<=22?2:3);
+  const deload=[6,12,18,24].includes(wk), dbreak=[12,22].includes(wk);
+  P.kind="main";P.phase=ph;P.week=wk;P.label="เฟส "+ph+" · สัปดาห์ "+wk;
+  P.deload=deload;P.vol=deload?.5:1;
+  if(wk===29){
+    const pk=[["Full Body เบา 60% น้ำหนัก",[["Back Squat เบา",3,"10","3",90,""],["Lat Pulldown เบา",3,"12","3",90,""],["Incline DB Press เบา",3,"12","3",90,""]]],
+      ["ไหล่ + แขน Pump",[["Cable Lateral Raise",3,"20","1",45,""],["Cable Curl",3,"15","1",45,""],["Rope Pushdown",3,"15","1",45,""],["Face Pull",3,"20","1",45,""]]],
+      ["หลัง Pump",[["Lat Pulldown",3,"15","1",60,""],["Seated Cable Row",3,"15","1",60,""],["Straight-Arm Pulldown",3,"15","1",45,""],["Reverse Pec Deck",3,"20","1",45,""]]],
+      ["Full Body เบา",[["Leg Press เบา",2,"15","3",60,""],["Chest-Supported Row เบา",2,"15","3",60,""],["DB Lateral Raise",2,"20","2",45,""],["EZ-Bar Curl เบา",2,"15","2",45,""]]],
+      ["Pump เบาทั้งตัว",[["DB Lateral Raise",2,"20","1",30,""],["Cable Fly",2,"15","1",30,""],["Seated Cable Row",2,"15","1",30,""],["Cable Curl",2,"15","1",30,""],["Rope Pushdown",2,"15","1",30,""]]],
+      null,null][dow];
+    P.session=pk?{n:pk[0],e:pk[1]}:null;
+    P.vol=[.4,.4,.4,.3,.25,0,0][dow];
+    P.abs=["A",null,"B",null,"C","C","C"][dow];
+    P.cardio=["LISS 30 นาที","LISS 30 นาที","LISS 30 นาที","LISS 25 นาที","LISS 20 นาที","เดินเบา 15 นาที","ไม่มี"][dow];
+    P.kcal=[[2000,175,212,50],[2000,175,212,50],[2000,175,212,50],[1750,175,130,50],
+            [1750,175,130,50],[2600,170,430,35],[2500,170,400,35]][dow];
+    P.water=[9,9,9,9,8,5,5][dow];
+    P.note=["เริ่มลดโซเดียม ดื่มน้ำ 4.5 ลิตร/วัน","โซเดียมต่ำ น้ำ 4.5 ลิตร","โซเดียมต่ำ น้ำ 4.5 ลิตร",
+      "เริ่มลดคาร์บลง 40% คงโปรตีน น้ำ 4.5 ลิตร","คาร์บต่ำวันที่ 2 น้ำ 4 ลิตร งดผักใบเยอะ",
+      "CARB LOAD — เติมคาร์บ +150% ลดไฟเบอร์ ลดน้ำเหลือ 2.5 ลิตร",
+      "คาร์บสูงต่อเนื่อง เกลือกลับมาปกติ จิบน้ำตามต้องการ"][dow];
+    P.steps=8000;P.label="สัปดาห์ Peak";
+    return P;
+  }
+  let sess=(dow===6)?null:JSON.parse(JSON.stringify(W[dow]));
+  if(sess&&dow===0) sess.e.push(["DB Lateral Raise",3,"15–20","0–1",45,"ไหล่ข้างรอบพิเศษ — กล้ามเนื้อที่เปลี่ยนรูปร่างคุณมากที่สุด"]);
+  if(sess&&ph===3&&dow===0) sess.e.push(["Dumbbell Pullover",3,"12","1",60,"เฟส 3 : serratus เพื่อความคมของร่อง 11"]);
+  if(sess&&ph===3&&dow===2) sess.e=[sess.e[0],sess.e[1],sess.e[4]];
+  if(sess&&ph===3&&dow===4) sess.e.push(["Cable Crunch เอียงข้าง",3,"15/ข้าง","0–1",45,"เฟส 3 : ข้างลำตัว"]);
+  P.session=sess;P.abs=({0:"A",2:"B",4:"C",5:"D"})[dow]||null;
+  const CB=wk<=6?{0:[20,0],1:[0,10],3:[25,0],5:[30,0]}
+    :wk<=12?{0:[25,0],1:[0,12],3:[30,0],4:[20,0],5:[35,0]}
+    :wk<=18?{0:[30,0],1:[0,12],3:[35,0],4:[25,0],5:[40,12]}
+    :wk<=24?{0:[35,0],1:[0,15],2:[30,0],3:[35,0],4:[30,0],5:[40,15]}
+    :{0:[40,0],1:[0,15],2:[30,0],3:[40,0],4:[35,0],5:[45,15]};
+  let a=CB[dow]||[0,0], li=a[0], hi=a[1];
+  if(deload){li=Math.round(li*.5);hi=0}
+  const cp=[];
+  if(li)cp.push("LISS "+li+" นาที (เดินชัน 10–12%)");
+  if(hi)cp.push("HIIT "+hi+" นาที (20 วิ เร่ง / 40 วิ ผ่อน)");
+  P.cardio=cp.join(" + ")||(dow===6?"เดินอย่างเดียว":"ไม่มี");
+  P.li=li;P.hiit=hi;
+  P.steps=wk<=6?8000:wk<=12?9000:wk<=18?1e4:wk<=24?11000:12000;
+  const M={1:{t:[2250,165,262,60],s:[2050,165,212,60],r:[1900,165,170,62]},
+           2:{t:[2100,170,231,55],s:[1900,170,181,55],r:[1750,170,144,55]},
+           3:{t:[2000,175,212,50],s:[1800,175,162,50],r:[1650,175,125,50]}};
+  const RF={1:[2590,165,382,45],2:[2440,170,351,40],3:[2340,175,332,35]};
+  const refeed=(dow===2)&&(ph===3||wk%2===0)&&!dbreak;
+  P.kcal=dbreak?[2600,170,311,75]:(refeed?RF[ph]:M[ph][dow===6?"r":(dow===5?"s":"t")]);
+  P.refeed=refeed;P.dbreak=dbreak;P.water=9;
+  const nt=[];
+  if(dow===0&&WEEKNOTE[wk])nt.push(WEEKNOTE[wk]);
+  if(refeed)nt.push("REFEED — เพิ่มคาร์บ +120 g ลดไขมันลง คงโปรตีนเดิม (ไม่ใช่ cheat meal)");
+  if(dbreak&&dow===0)nt.push("Diet Break ทั้งสัปดาห์ ไม่ต้องกลัวน้ำหนักขึ้น 1–1.5 kg (น้ำและไกลโคเจน)");
+  if(dow===6)nt.push("เตรียมอาหารล่วงหน้า + ชั่งน้ำหนักตอนเช้าหลังเข้าห้องน้ำ");
+  P.note=nt.join("  ·  ");
+  return P;
+}
+
+/* ---------- รายละเอียดคาร์ดิโอรายวัน ---------- */
+function cardioDetail(li,hi,walkOnly,steps,easy){
+  const out=[];
+  if(li&&easy)out.push({k:"WALK",n:"เดินสบายๆ",en:"Easy walk",mins:li,
+    set:"ลู่วิ่งชัน 0–5% ความเร็ว 5 กม./ชม. หรือเดินในสวนก็ได้ ไม่ต้องเร่ง",
+    hr:"ไม่ต้องคุมชีพจร เดินให้สบาย พูดคุยได้ตลอด",
+    alt:"เดินในสวน เดินรอบหมู่บ้าน หรือเดินหลังมื้ออาหารสะสมให้ครบ "+li+" นาที",
+    why:"ช่วงนี้เน้นฟื้นตัวและสะสมก้าว ไม่ใช่เร่งเผาผลาญ"});
+  if(li&&!easy)out.push({k:"LISS",n:"เดินชันบนลู่วิ่ง",en:"Incline treadmill walk",mins:li,
+    set:"ความชัน 10–12% · ความเร็ว 5.0–5.5 กม./ชม. · ห้ามจับราวเครื่อง",
+    hr:"ชีพจร 120–135 ครั้ง/นาที (โซน 2 — หายใจพอพูดเป็นประโยคได้)",
+    alt:"ถ้าไม่เข้ายิม: เดินเร็วในสวน "+li+" นาที หรือปั่นจักรยานอยู่กับที่แรงต้านกลาง "+li+" นาที",
+    why:"เผาไขมันโดยไม่กินแรงฟื้นตัวของขา — ทำหลังเวทเสมอ"});
+  if(hi)out.push({k:"HIIT",n:"HIIT ลู่วิ่งหรือจักรยาน",en:"HIIT intervals",mins:hi,
+    set:"เร่ง 20 วินาที / ผ่อน 40 วินาที × "+hi+" รอบ · วอร์มอัพ 3 นาทีก่อนเริ่ม",
+    hr:"ช่วงเร่งให้ถึง 85–90% ของชีพจรสูงสุด (ประมาณ 160–170)",
+    alt:"ถ้าวิ่งในสวน: สปรินต์ 20 วินาที แล้วเดิน 40 วินาที ทำ "+hi+" รอบ บนทางเรียบ",
+    why:"ดันการเผาผลาญหลังออกกำลังกาย — ทำหลังเวทหรือคนละเวลาห่างกัน 6 ชม."});
+  if(!li&&!hi&&walkOnly)out.push({k:"WALK",n:"เดินสะสมก้าว",en:"Daily steps",mins:0,
+    set:"เดินให้ครบ "+steps.toLocaleString()+" ก้าว กระจายทั้งวัน",
+    hr:"ไม่ต้องคุมชีพจร เดินสบายๆ",
+    alt:"เดินหลังมื้ออาหาร 10–15 นาที ช่วยได้ทั้งน้ำตาลและก้าว",
+    why:"คาร์ดิโอที่ไม่กินแรงฟื้นตัวเลย — วันพักยังทำได้"});
+  return out;
+}
+function cardioTotal(P){ return (P.cardioPlan||[]).reduce((a,c)=>a+c.mins,0) }
+function cardioOK(L,P){
+  const t=cardioTotal(P); if(!t)return true;
+  if(typeof L.cardio==="number"&&L.cardio>1)return L.cardio>=t*0.8;
+  return !!L.cardio;
+}
+function macroOf(str){const m=String(str).match(/(\d+)\s*kcal.*?P(\d+)\s*C(\d+)\s*F(\d+)/);
+  return m?{kcal:+m[1],p:+m[2],c:+m[3],f:+m[4]}:{kcal:0,p:0,c:0,f:0}}
+function foodSum(L){const o={kcal:0,p:0,c:0,f:0};(L.food||[]).forEach(x=>{o.kcal+=x.kcal||0;o.p+=x.p||0;o.c+=x.c||0;o.f+=x.f||0});return o}
+
+function attachCardio(P){
+  if(P.cardioPlan)return P;
+  const easy=/^เดิน/.test(String(P.cardio||""));
+  if(P.li!==undefined||P.hiit!==undefined){
+    P.cardioPlan=cardioDetail(P.li||0,P.hiit||0,true,P.steps||9000,false);
+  }else{
+    const txt=String(P.cardio||"");
+    const all=[...txt.matchAll(/(\d+)\s*นาที/g)].map(x=>+x[1]);
+    const hasH=/HIIT/.test(txt);
+    let li=0,hi=0;
+    if(hasH&&all.length>1){li=all[0];hi=all[1]}
+    else if(hasH){hi=all[0]||0}
+    else {li=all[0]||0}
+    P.cardioPlan=cardioDetail(li,hi,true,P.steps||9000,easy);
+  }
+  return P;
+}
+function exList(P){
+  let e=P.session?P.session.e.slice():[];
+  if(P.vol!==undefined&&P.vol<1) e=e.map(x=>[x[0],Math.max(1,Math.round(x[1]*P.vol)),x[2],x[3],x[4],x[5]]);
+  if(P.abs) e=e.concat(ABS[P.abs].map(a=>[a[0],+a[1],a[2],"0–1",45,a[3]]));
+  return e;
+}
+
+/* ---------- ที่เก็บข้อมูล ---------- */
+const mem={};
+const LS=(()=>{try{localStorage.setItem("__t","1");localStorage.removeItem("__t");return true}catch(e){return false}})();
+async function sGet(k){
+  if(LS){try{const v=localStorage.getItem(k);return v?JSON.parse(v):null}catch(e){}}
+  if(window.storage){try{const r=await window.storage.get(k);return r?JSON.parse(r.value):null}catch(e){}}
+  return mem[k]??null;
+}
+async function sSet(k,v){
+  mem[k]=v;
+  if(LS){try{localStorage.setItem(k,JSON.stringify(v));return}catch(e){
+    if(e&&/quota/i.test(e.name||e.message||"")) toast("พื้นที่เก็บข้อมูลเต็ม — ส่งออกสำรองแล้วลบข้อมูลเก่า");
+  }}
+  if(window.storage){try{await window.storage.set(k,JSON.stringify(v))}catch(e){}}
+}
+
+/* หนึ่งวัน = หนึ่งคีย์ (รวมเวท อาหาร น้ำ โน้ต) เพื่อลดจำนวนการอ่าน/เขียน */
+const cache={};
+const blank=()=>({meals:{},cardio:0,abs:0,water:0,steps:0,note:"",sleep:null,lift:{}});
+async function rec(ds){
+  if(cache[ds])return cache[ds];
+  let r=await sGet("pt:d:"+ds);
+  if(!r){
+    const a=await sGet("pt:day:"+ds), b=await sGet("pt:lift:"+ds);   // ย้ายข้อมูลเวอร์ชันเก่า
+    r=blank();
+    if(a){r.meals=a.meals||{};r.cardio=a.cardio||0;r.abs=a.abs||0;r.water=a.water||0;r.steps=a.steps||0}
+    if(b)r.lift=b;
+    if(a||b){await sSet("pt:d:"+ds,r);await touchIdx(ds)}
+  }
+  if(!r.lift)r.lift={};
+  if(!r.meals)r.meals={};
+  cache[ds]=r; return r;
+}
+async function save(ds){ await sSet("pt:d:"+ds,cache[ds]); await touchIdx(ds) }
+async function getDay(ds){ return await rec(ds) }
+async function putDay(ds,o){ cache[ds]=o; await save(ds) }
+async function getLift(ds){ return (await rec(ds)).lift }
+async function putLift(ds,o){ const r=await rec(ds); r.lift=o; await save(ds); await idxLift(ds,o) }
+
+let IDX=null,WT=null,MZ=null,SET=null;
+async function getIdx(){ if(!IDX)IDX=await sGet("pt:idx")||{d:[],ex:{}}; if(!IDX.ex)IDX.ex={}; if(!IDX.d)IDX.d=[]; return IDX }
+async function touchIdx(ds){ const x=await getIdx(); if(!x.d.includes(ds)){x.d.push(ds);x.d.sort();await sSet("pt:idx",x)} }
+async function idxLift(ds,lf){
+  const x=await getIdx(), ex=exList(plan(ds)); let ch=false;
+  ex.forEach((e,i)=>{
+    const st=lf[i]; if(!st||!st.length)return;
+    let best=0; st.forEach(s=>{ if(s.w>0&&s.r>0){const v=s.w*(1+s.r/30); if(v>best)best=v} });
+    if(best){ x.ex[e[0]]=x.ex[e[0]]||{}; const v=Math.round(best*10)/10;
+      if(x.ex[e[0]][ds]!==v){x.ex[e[0]][ds]=v;ch=true} }
+  });
+  if(ch)await sSet("pt:idx",x);
+}
+async function getWT(){ if(!WT)WT=await sGet("pt:weight")||{}; return WT }
+async function getMZ(){ if(!MZ)MZ=await sGet("pt:measure")||{}; return MZ }
+async function getSet(){ if(!SET)SET=await sGet("pt:settings")||{gym:1140}; return SET }
+const hhmm=m=>{m=((Math.round(m)%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0")};
+function mealSlots(){
+  const g=(SET&&SET.gym)||1140;
+  const pre=g-45, post=g+105;
+  let din=post+75;
+  if(din<1080)din=1260;          // ยิมเช้า → มื้อเย็นอยู่ที่ 21:00 ตามเดิม
+  if(din>1385)din=1385;          // ยิมดึก → ไม่เลื่อนเกิน 23:05
+  return {pre:pre,post:post,din:din};
+}
+function shiftT(t,_){ const S=mealSlots(); return t==="17:15"?hhmm(S.pre):(t==="19:45"?hhmm(S.post):hhmm(S.din)) }
+function mealTimes(list){
+  const S=mealSlots(), t=[null,null,null,hhmm(S.pre),hhmm(S.post),hhmm(S.din)];
+  return list.map((m,i)=>t[i]?[t[i],m[1],m[2],m[3]]:m)
+    .sort((a,b)=>a[0].localeCompare(b[0]));
+}
+let toastT;
+function toast(m){const t=document.getElementById("toast");t.textContent=m||"บันทึกแล้ว";t.classList.add("on");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("on"),1300)}
+
+let TODAY=iso(new Date());
+if(TODAY<D0)TODAY=D0; if(TODAY>DEND)TODAY=DEND;
+let VIEW="today", BROWSE=TODAY;
+
+function renderHeader(){
+  const d=day(TODAY),P=plan(TODAY);
+  document.getElementById("hDate").textContent=fmt(TODAY);
+  document.getElementById("hMeta").textContent=P.label;
+  const tot=diff(D0,DEND),cur=Math.max(0,diff(D0,TODAY));
+  document.getElementById("tFill").style.width=(cur/tot*100)+"%";
+  ["2026-12-14","2027-02-22","2027-04-14"].forEach((m,i)=>
+    document.getElementById("tM"+(i+1)).style.left=(diff(D0,m)/tot*100)+"%");
+}
+function ring(pct){
+  const r=26,c=2*Math.PI*r;
+  return `<svg class="ring" viewBox="0 0 62 62"><circle cx="31" cy="31" r="${r}" fill="none" stroke="rgba(247,244,238,.20)" stroke-width="4"/>
+   <circle cx="31" cy="31" r="${r}" fill="none" stroke="#A61B18" stroke-width="4" stroke-linecap="round"
+     stroke-dasharray="${c}" stroke-dashoffset="${c*(1-pct)}" transform="rotate(-90 31 31)"/>
+   <text x="31" y="36" text-anchor="middle" fill="#F7F4EE" font-size="15" font-weight="500" font-family="Georgia,serif">${Math.round(pct*100)}</text></svg>`;
+}
+
+/* ---------- วันนี้ ---------- */
+const IC={
+ lift:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 9v6M6 7v10M18 7v10M21 9v6M6 12h12"/></svg>',
+ scale:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="4"/><path d="M8.5 15 12 9.5l3.5 5.5M12 9.5V7.5"/></svg>',
+ food:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v7a2.5 2.5 0 0 0 5 0V3M8.5 12.5V21"/><path d="M17.5 3c-1.7 1.6-2.5 3.7-2.5 6 0 1.7.7 2.8 2.5 3V21"/></svg>',
+ water:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3s6 6.4 6 10.5A6 6 0 0 1 6 13.5C6 9.4 12 3 12 3z"/></svg>',
+ run:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="4.5" r="2"/><path d="M12.5 21l1.5-5-3-2.5 1-5.5 3.5 3 3 1M9 11 6.5 9 4 11.5M11 13.5 7.5 16l-1 5"/></svg>',
+ cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="4"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
+ leaf:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M20 4C10 4 4 9 4 15a5 5 0 0 0 5 5c6 0 11-6 11-16z"/><path d="M8 17c3-4 6-6 10-8" stroke-linecap="round"/></svg>',
+ tick:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg>',
+ face:'<svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" fill="#fff" opacity=".18"/><path d="M12 14.5Q20 9.5 28 14.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M14 18.5 16.5 28M20 17.5V29M26 18.5 23.5 28" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/></svg>'
+};
+const H2=(th,en)=>`<div class="secthd">${th}<span>${en}</span></div>`;
+async function vToday(){
+  const P=plan(TODAY),L=await getDay(TODAY),lift=L.lift;
+  const ex=exList(P),doneEx=Object.keys(lift).filter(k=>(lift[k]||[]).length).length;
+  const setN=Object.values(lift).reduce((a,v)=>a+(v||[]).length,0);
+  const wt=await getWT(), w=wt[TODAY];
+  const mealN=Object.keys(L.meals).filter(k=>L.meals[k]).length;
+  const left=Math.max(0,diff(TODAY,"2027-04-13"));
+  const total=diff(D0,DEND), cur=Math.max(0,diff(D0,TODAY));
+  const hr=new Date().getHours();
+  const hi=hr<11?"สวัสดีตอนเช้า":(hr<17?"สวัสดีตอนบ่าย":"สวัสดีตอนเย็น");
+  const s1=!!w, s2=!P.session||doneEx>=ex.length;
+  const k=Object.keys(wt).sort(), l7=k.slice(-7);
+  const avg7=l7.length?(l7.reduce((a,x)=>a+wt[x],0)/l7.length):null;
+  const base=k.length?wt[k[0]]:77.4;
+  const lost=k.length?(base-wt[k[k.length-1]]):0;
+
+  /* ---- แบนเนอร์ ---- */
+  let h=`<div class="banner"><div class="bn">
+    <em>MONSTERGOLDX</em>
+    <h1>${P.session?P.session.n:(P.kind==="end"?"จบโปรแกรม":"วันพัก")}</h1>
+    <p>${P.label} · ${P.session?`${ex.length} ท่า · ${ex.reduce((a,x)=>a+x[1],0)} เซ็ต`:(P.cardio||"เดินให้ครบก้าวเป้า")}</p>
+    <div class="cd"><b>${left}</b><span>วันถึงสงกรานต์ · DAYS LEFT</span></div>
+  </div></div>`;
+
+  /* ---- การ์ดขาวลอยทับ ---- */
+  h+=`<div class="sheet">
+    <div class="hi-row"><div>
+      <div class="nm">${hi}</div>
+      <div class="bg">${P.phase===4?"เฟสรักษาสภาพ":"เฟส "+P.phase} · ${typeof P.week==="number"?"สัปดาห์ "+P.week:P.week||"เตรียมตัว"}</div>
+    </div><div class="av">${IC.face}</div></div>
+    <div class="kpi">
+      <div><b>${w?w.toFixed(1):"—"}</b><span>น้ำหนักวันนี้ · KG</span></div>
+      <div><b>${avg7?avg7.toFixed(1):"—"}</b><span>เฉลี่ย 7 วัน · AVG</span></div>
+      <div><b style="color:${lost>0?"var(--moss)":"var(--ink)"}">${lost>0?"−"+lost.toFixed(1):"0.0"}</b><span>ลดแล้ว · LOST</span></div>
+    </div>
+
+    <div class="duo">
+      <button data-goto="lift">${P.session?`<span class="tagr${s2?" ok":""}">${doneEx}/${ex.length} ท่า</span>`:`<span class="tagr">วันพัก</span>`}
+        <div class="blob">${figFor((P.session&&P.session.e[0])?P.session.e[0][0]:"walk")}</div>
+        <b>บันทึกเวท</b><span>TRAIN · ${setN} เซ็ตวันนี้</span></button>
+      <div class="sep"></div>
+      <button data-goto="weigh">${w?`<span class="tagr ok">ชั่งแล้ว</span>`:`<span class="tagr">ยังไม่ชั่ง</span>`}
+        <div class="blob">${FIGS.walk}</div>
+        <b>ชั่งน้ำหนัก</b><span>WEIGH · ${w?w.toFixed(1)+" kg":"แตะเพื่อกรอก"}</span></button>
+    </div>
+
+    <div class="quick">
+      <button data-goto="eat">${mealN>=6?'<span class="dot"></span>':""}<i>${IC.food}</i><b>มื้ออาหาร<br>Food</b></button>
+      <button data-qw="1">${L.water>=P.water?'<span class="dot"></span>':""}<i>${IC.water}</i><b>ดื่มน้ำ<br>${(L.water*.5).toFixed(1)} ล.</b></button>
+      <button data-tg="cardio">${L.cardio?'<span class="dot"></span>':""}<i>${IC.run}</i><b>คาร์ดิโอ<br>Cardio</b></button>
+      <button data-goto="plan"><i>${IC.cal}</i><b>แผนทั้งหมด<br>Plan</b></button>
+    </div>
+  </div>`;
+
+  if(P.note)h+=`<div class="note${P.refeed||P.dbreak?" gold":""}">${P.note}</div>`;
+
+  /* ---- การ์ดเลเวล ---- */
+  const [kc,pp,cc,ff]=P.kcal;
+  h+=`<div class="lvl">
+    <h3>${P.phase===4?"Maintain Mode":"Phase "+P.phase}</h3>
+    <p>อีก ${left} วันถึงเป้าหมาย · เดินทางมาแล้ว ${cur} จาก ${total} วัน</p>
+    <div class="pr"><div class="bar"><i style="width:${cur/total*100}%"></i></div><b>${cur}/${total}</b></div>
+    <div class="inner">
+      <div class="hd">เป้าโภชนาการวันนี้${P.refeed?" · REFEED":""}${P.dbreak?" · DIET BREAK":""}</div>
+      <div class="row4">
+        <div><b style="color:var(--terra)">${kc.toLocaleString()}</b><span>kcal</span></div>
+        <div><b>${pp}</b><span>โปรตีน P</span></div>
+        <div><b>${cc}</b><span>คาร์บ C</span></div>
+        <div><b>${ff}</b><span>ไขมัน F</span></div>
+      </div>
+    </div><div class="pad"></div></div>`;
+
+  /* ---- สองอย่างที่ต้องกรอก ---- */
+  h+=H2("ต้องกรอกแค่ 2 อย่าง","REQUIRED DAILY INPUT");
+  h+=`<div class="ccards">
+    <div class="ccard" ${w?'':'style="cursor:pointer"'}>
+      <div class="t"><span>ชั่งน้ำหนัก</span><i>${s1?IC.tick:IC.scale}</i></div>
+      <div><b style="color:${s1?"var(--moss)":"var(--ink3)"}">${w?w.toFixed(1):"—"}</b><em>${s1?"บันทึกแล้ววันนี้":"ยังไม่ได้ชั่งเช้านี้"}</em></div></div>
+    <div class="ccard">
+      <div class="t"><span>บันทึกเวท</span><i>${s2&&P.session?IC.tick:IC.lift}</i></div>
+      <div><b style="color:${s2&&P.session?"var(--moss)":"var(--ink3)"}">${P.session?doneEx+"/"+ex.length:"—"}</b><em>${P.session?setN+" เซ็ตที่บันทึก":"วันนี้ไม่มีเวท"}</em></div></div>
+  </div>`;
+  if(!w)h+=`<div class="card" style="margin-top:11px"><div class="bigin">
+    <input id="wIn" type="number" step="0.1" inputmode="decimal" placeholder="0.0"><button onclick="saveWeight()">บันทึก</button></div>
+    <div style="font-size:12.5px;color:var(--ink2);margin-top:10px">ชั่งตอนเช้า ท้องว่าง หลังเข้าห้องน้ำ · Morning, empty stomach</div></div>`;
+
+  /* ---- แบนเนอร์เตือนว่ายังขาดอะไร ---- */
+  const miss=[];
+  if(!w)miss.push(["ยังไม่ได้ชั่งน้ำหนักเช้านี้",'data-goto="weigh"',"ชั่งเลย"]);
+  if(P.session&&doneEx<ex.length)miss.push([`บันทึกเวทแล้ว ${doneEx} จาก ${ex.length} ท่า`,'data-goto="lift"',"เปิด"]);
+  const ctot=cardioTotal(P), cdone=(typeof L.cardio==="number"&&L.cardio>1)?L.cardio:(L.cardio?ctot:0);
+  if(ctot&&cdone<ctot*0.8)miss.push([`คาร์ดิโอ ${cdone||0} จาก ${ctot} นาที`,'data-goto="lift"',"ดูแผน"]);
+  const fs=foodSum(L);
+  if(fs.kcal<kc*0.85)miss.push([`กินไป ${fs.kcal.toLocaleString()} จาก ${kc.toLocaleString()} kcal · โปรตีน ${fs.p}/${pp} g`,'data-goto="eat"',"บันทึก"]);
+  if(L.water<P.water)miss.push([`ดื่มน้ำ ${(L.water*.5).toFixed(1)} จาก ${(P.water*.5).toFixed(1)} ลิตร`,'data-qw="1"',"+1 แก้ว"]);
+  if(P.abs&&!L.abs)miss.push([`หน้าท้องชุด ${P.abs} ยังไม่ได้ทำ`,'data-tg="abs"',"ทำแล้ว"]);
+
+  if(miss.length){
+    h+=`<div class="alert"><div class="ah">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 8v5M12 16.5v.5"/><circle cx="12" cy="12" r="9"/></svg>
+      วันนี้ยังขาดอีก ${miss.length} อย่าง</div><ul>`;
+    miss.forEach(m=>{h+=`<li><b>${m[0]}</b><button ${m[1]}>${m[2]}</button></li>`});
+    h+=`</ul></div>`;
+  }else{
+    h+=`<div class="alert ok"><div class="ah">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg>
+      ครบทุกอย่างแล้ววันนี้</div>
+      <div class="sub">น้ำหนัก เวท คาร์ดิโอ อาหาร และน้ำ ครบตามแผน — พักผ่อนให้พอ</div></div>`;
+  }
+
+  h+=`<details><summary>บันทึกเพิ่มเติม · More details</summary><div class="card">
+    <div style="font-size:12.5px;color:var(--ink2);margin-bottom:9px">น้ำ · Water — แตะทีละแก้ว (500 ml)</div>
+    <div class="water">${Array.from({length:P.water},(_,i)=>`<b class="${L.water>i?"on":""}" data-w="${i+1}"></b>`).join("")}</div>
+    <div style="display:flex;gap:10px;align-items:center;margin-top:16px">
+      <label style="font-size:12.5px;color:var(--ink2);flex:1">นอนเมื่อคืนกี่ชั่วโมง · Sleep</label>
+      <input id="slIn" type="number" step="0.5" inputmode="decimal" value="${L.sleep??""}" placeholder="—"
+        style="width:92px;border:1px solid var(--line2);background:#fff;border-radius:13px;padding:10px;font-family:var(--mono);text-align:center;font-size:17px"></div>
+    <textarea id="ntIn" rows="3" placeholder="รู้สึกยังไง · ข้อไหนเจ็บ · How did today feel?"
+      style="width:100%;margin-top:10px;border:1px solid var(--line2);background:#fff;border-radius:13px;padding:12px;font-family:inherit;font-size:14px;color:var(--ink);resize:vertical">${L.note||""}</textarea>
+    <button class="go ghost" onclick="saveNote()" style="margin-top:10px">บันทึกโน้ต · Save</button>
+    <div class="chk ${L.steps?"done":""}" data-tg="steps" style="margin-top:6px"><div class="box"></div>
+      <div class="t"><b>เดินครบ ${P.steps.toLocaleString()} ก้าว</b><span>Steps</span></div></div>
+    <div class="chk ${L.abs?"done":""}" data-tg="abs"><div class="box"></div>
+      <div class="t"><b>หน้าท้อง${P.abs?" ชุด "+P.abs:""}</b><span>${P.abs?ABS[P.abs].map(a=>a[0]).join(" · "):"วันนี้ไม่มี"}</span></div></div>
+    </div></details>`;
+  document.getElementById("v-today").innerHTML=h;
+}
+function trendCells(wt){
+  const k=Object.keys(wt).sort(),l7=k.slice(-7),p7=k.slice(-14,-7);
+  const avg=a=>a.length?a.reduce((s,x)=>s+wt[x],0)/a.length:null;
+  const a=avg(l7),b=avg(p7);
+  let c=`<div><b>${a?a.toFixed(1):"—"}</b><span>เฉลี่ย 7 วัน</span></div>`;
+  if(a&&b){const d=a-b;c+=`<div><b style="color:${d<-0.6?"var(--brick)":(d<0?"var(--moss)":"var(--ink)")}">${d>0?"+":""}${d.toFixed(2)}</b><span>kg/สัปดาห์</span></div>`}
+  return c;
+}
+
+
+/* ---------- ตั้งค่าเริ่มต้นวันแรก ---------- */
+async function vOnboard(){
+  const wt=await getWT(), mz=await getMZ(), st=await getSet();
+  const b=st.ob||{};
+  const hasW=!!wt[TODAY], m=mz[TODAY]||{};
+  const hasM=!!(m.sh&&m.wa&&m.ar&&m.al);
+  const ready=b.doc&&hasW&&hasM&&b.photo;
+  let h=`<div class="ob"><div class="obh">
+    <em>MONSTERGOLDX</em>
+    <h1>ตั้งค่าเส้นฐานก่อนเริ่ม</h1>
+    <p>ทำครั้งเดียว 5 นาที — ถ้าไม่มีจุดเริ่มต้น อีก 7 เดือนจะเทียบไม่ได้เลยว่าเปลี่ยนไปแค่ไหน<br>
+    <span style="font-size:11.5px;color:var(--ink3)">One-time baseline setup</span></p></div>`;
+
+  h+=`<div class="obs${b.doc?" done":""}"><div class="n">${b.doc?"✓":"1"}</div><div class="bd">
+    <b>คุยกับแพทย์เรื่องผลเลือด</b>
+    <span class="warn">กรดยูริก 7.7 สูงกว่าเกณฑ์ และคุณกำลังจะอยู่ในภาวะแคลอรี่ต่ำ 7 เดือน</span>
+    <span>ถามแพทย์ 2 ข้อ: ค่านี้ต้องเฝ้าระวังหรือรักษาไหม · แผนลด 10 kg ใน 7 เดือนมีข้อควรระวังอะไรเพิ่ม<br>
+    ขอเพิ่มตอนตรวจรอบหน้า: วิตามินดี · ฮอร์โมนเพศชาย · TSH · HbA1c · CBC</span>
+    <button class="go ${b.doc?"ghost":""}" style="margin-top:12px" data-ob="doc">${b.doc?"✓ คุยแล้ว — แตะเพื่อยกเลิก":"คุยกับแพทย์แล้ว"}</button>
+  </div></div>`;
+
+  h+=`<div class="obs${hasW?" done":""}"><div class="n">${hasW?"✓":"2"}</div><div class="bd">
+    <b>ชั่งน้ำหนักวันแรก</b>
+    <span>ชั่งตอนเช้า ท้องว่าง หลังเข้าห้องน้ำ — ตัวเลขนี้จะเป็นเส้นฐานของทั้งโปรแกรม</span>
+    ${hasW?`<div class="stats" style="margin-top:12px"><div class="hi"><b>${wt[TODAY].toFixed(1)}</b><span>kg เส้นฐาน</span></div></div>`
+      :`<div class="bigin" style="margin-top:12px"><input id="obW" type="number" step="0.1" inputmode="decimal" placeholder="0.0"><button data-ob="w">บันทึก</button></div>`}
+  </div></div>`;
+
+  h+=`<div class="obs${hasM?" done":""}"><div class="n">${hasM?"✓":"3"}</div><div class="bd">
+    <b>วัดรอบตัว</b>
+    <span>ไหล่วัดจุดกว้างสุด · เอววัดระดับสะดือ หายใจออกปกติ ไม่แขม่วท้อง · แขนวัดตอนงอเกร็งจุดใหญ่สุด<br>
+    อัตราส่วนไหล่ ÷ เอว คือตัวเลขที่ตัดสินว่าดู "นายแบบ" ไหม — เป้าหมาย 1.55–1.60</span>
+    <div class="grid2 mz" style="margin-top:12px">
+      <div><label>รอบไหล่ (cm)</label><input id="ob_sh" type="number" step="0.5" inputmode="decimal" value="${m.sh??""}"></div>
+      <div><label>เอว (cm)</label><input id="ob_wa" type="number" step="0.5" inputmode="decimal" value="${m.wa??""}"></div>
+      <div><label>แขนขวา (cm)</label><input id="ob_ar" type="number" step="0.5" inputmode="decimal" value="${m.ar??""}"></div>
+      <div><label>แขนซ้าย (cm)</label><input id="ob_al" type="number" step="0.5" inputmode="decimal" value="${m.al??""}"></div>
+      <div><label>PBF (%)</label><input id="ob_bf" type="number" step="0.1" inputmode="decimal" value="${m.bf??21.9}"></div>
+      <div><label>SMM (kg)</label><input id="ob_sm" type="number" step="0.1" inputmode="decimal" value="${m.sm??34.2}"></div>
+    </div>
+    <button class="go ${hasM?"ghost":""}" style="margin-top:12px" data-ob="m">${hasM?"บันทึกแล้ว — แก้ไข":"บันทึกการวัด"}</button>
+    ${hasM&&m.sh&&m.wa?`<div class="stats" style="margin-top:11px"><div class="hi"><b>${(m.sh/m.wa).toFixed(2)}</b><span>ไหล่ ÷ เอว</span></div>
+      <div><b>1.55–1.60</b><span>เป้าหมาย</span></div>
+      ${m.ar&&m.al?`<div><b>${Math.abs(m.ar-m.al).toFixed(1)}</b><span>ต่างซ้าย-ขวา</span></div>`:""}</div>`:""}
+  </div></div>`;
+
+  h+=`<div class="obs${b.photo?" done":""}"><div class="n">${b.photo?"✓":"4"}</div><div class="bd">
+    <b>ถ่ายรูปวันแรก</b>
+    <span>หน้า · ข้าง · หลัง แสงเดียวกัน ที่เดิม เวลาเดิม เก็บไว้ในอัลบั้มมือถือ<br>
+    อีก 4 สัปดาห์ถ่ายซ้ำมุมเดิม — รูปบอกความเปลี่ยนแปลงชัดกว่าตัวเลขบนตาชั่งเสมอ</span>
+    <button class="go ${b.photo?"ghost":""}" style="margin-top:12px" data-ob="photo">${b.photo?"✓ ถ่ายแล้ว — แตะเพื่อยกเลิก":"ถ่ายแล้ว"}</button>
+  </div></div>`;
+
+  h+=`<button class="bigbtn" style="margin-top:16px${ready?"":";opacity:.45"}" data-ob="go">${ready?"เริ่มโปรแกรม 273 วัน":"ทำให้ครบทั้ง 4 ข้อก่อน"}</button>
+    <button class="go ghost" style="margin-top:10px" data-ob="skip">ข้ามไปก่อน · Skip for now</button>
+    <div style="font-size:11.5px;color:var(--ink3);margin-top:12px;text-align:center;line-height:1.6">
+      ข้ามได้ แต่ถ้าไม่มีเส้นฐาน รายงานจะเทียบอะไรไม่ได้<br>เปิดหน้านี้ซ้ำได้ที่แท็บแผน → ตั้งค่า</div></div>`;
+  document.getElementById("v-today").innerHTML=h;
+}
+async function obAct(k){
+  const st=await getSet(); st.ob=st.ob||{};
+  if(k==="doc"||k==="photo"){ st.ob[k]=st.ob[k]?0:1; SET=st; await sSet("pt:settings",st); vOnboard(); return }
+  if(k==="w"){ const v=parseFloat(document.getElementById("obW").value);
+    if(!v||v<40||v>160){toast("ใส่น้ำหนักเป็นตัวเลข kg");return}
+    const wt=await getWT(); wt[TODAY]=v; WT=wt; await sSet("pt:weight",wt); toast("เส้นฐาน "+v.toFixed(1)+" kg"); vOnboard(); return }
+  if(k==="m"){ await saveMz("ob_"); vOnboard(); return }
+  if(k==="skip"||k==="go"){
+    const wt=await getWT(), mz=await getMZ(), m=mz[TODAY]||{};
+    const ready=st.ob.doc&&wt[TODAY]&&m.sh&&m.wa&&m.ar&&m.al&&st.ob.photo;
+    if(k==="go"&&!ready){toast("ยังทำไม่ครบทั้ง 4 ข้อ");return}
+    st.onboarded=1; SET=st; await sSet("pt:settings",st);
+    toast(k==="go"?"เริ่มได้เลย — สู้ๆ":"ข้ามแล้ว"); render(); return }
+}
+/* ---------- เล่น ---------- */
+async function vLift(){
+  const P=plan(BROWSE),ex=exList(P),lift=await getLift(BROWSE);
+  let h=`<div class="dnav"><button data-d="-1">‹</button><div>${fmt(BROWSE)} · ${TH_D[day(BROWSE).getDay()]}</div><button data-d="1">›</button></div>`;
+  if(!ex.length){document.getElementById("v-lift").innerHTML=h+cardioCard(P,await getDay(BROWSE))+`<div class="card"><div class="empty">วันนี้ไม่มีเวท — พักหรือคาร์ดิโออย่างเดียว</div></div>`;return}
+  h+=cardioCard(P,await getDay(BROWSE));
+  if(ex.length)h+=`<div class="card" style="padding:2px 15px">`;
+  ex.forEach((x,i)=>{
+    const sets=lift[i]||[];
+    h+=`<div class="ex"><div class="ex-top"><div class="fig">${figFor(x[0])}</div>
+      <div class="ex-i"><b>${x[0]}</b><div><span class="sr">${x[1]} × ${x[2]}</span><span class="mt">RIR ${x[3]} · พัก ${x[4]>=60?(x[4]/60)+" นาที":x[4]+" วิ"}</span></div></div></div>`;
+    if(x[5])h+=`<div class="ex-tip">${x[5]}</div>`;
+    h+=`<div class="sets">`;
+    sets.forEach((s,j)=>{h+=`<div class="set"><input type="number" inputmode="decimal" value="${s.w??""}" data-e="${i}" data-s="${j}" data-k="w" placeholder="kg"><span class="x">×</span><input type="number" inputmode="numeric" value="${s.r??""}" data-e="${i}" data-s="${j}" data-k="r" placeholder="ครั้ง"><button class="rm" data-rm="${i}.${j}">×</button></div>`});
+    h+=`<button class="addset" data-add="${i}" data-rest="${x[4]}">+ เซ็ต ${sets.length+1}</button></div>`;
+    if(PREV[x[0]])h+=`<div class="last">ครั้งก่อน: ${PREV[x[0]]}</div>`;
+    h+=`</div>`;
+  });
+  h+=`</div><div class="rests"><button data-t="45">45s</button><button data-t="60">1 min</button><button data-t="90">1.5 min</button><button data-t="120">2 min</button><button data-t="180">3 min</button></div>`;
+  document.getElementById("v-lift").innerHTML=h;
+}
+
+function cardioCard(P,L){
+  const cp=P.cardioPlan||[], tot=cardioTotal(P);
+  if(!cp.length)return "";
+  const doneM=(typeof L.cardio==="number"&&L.cardio>1)?L.cardio:(L.cardio?tot:0);
+  let h=H2("คาร์ดิโอวันนี้","TODAY'S CARDIO");
+  cp.forEach(c=>{
+    h+=`<div class="cardio"><div class="ch"><i>${IC.run}</i>
+      <div class="t"><b>${c.n}</b><span>${c.en} · ${c.k}</span></div>
+      ${c.mins?`<div class="mn">${c.mins}<span style="font-size:11px;color:var(--ink3)"> นาที</span></div>`:""}</div>
+      <dl><dt>ตั้งเครื่อง</dt><dd>${c.set}</dd>
+      <dt>ชีพจร</dt><dd>${c.hr}</dd>
+      <dt>ทำไม</dt><dd>${c.why}</dd></dl>
+      <div class="alt">${c.alt}</div></div>`;
+  });
+  if(tot){
+    h+=`<div class="cdone">
+      <input id="cdM" type="number" inputmode="numeric" value="${doneM||""}" placeholder="${tot}">
+      <button class="${doneM>=tot*0.8?"done":""}" onclick="saveCardio(${tot})">${doneM?`บันทึกแล้ว ${doneM} นาที — แก้ไข`:"บันทึกว่าทำแล้วกี่นาที"}</button></div>`;
+  }else{
+    h+=`<div class="cdone"><button class="${L.cardio?"done":""}" style="flex:1" onclick="toggleWalk()">${L.cardio?"✓ เดินครบแล้ววันนี้":"ติ๊กว่าเดินครบแล้ว"}</button></div>`;
+  }
+  return h;
+}
+async function saveCardio(tot){
+  const v=parseInt(document.getElementById("cdM").value);
+  const L=await getDay(BROWSE);
+  L.cardio=isNaN(v)?0:v; await putDay(BROWSE,L);
+  toast(isNaN(v)?"ล้างค่าแล้ว":(v>=tot*0.8?"ครบเป้าแล้ว "+v+" นาที":"บันทึก "+v+" นาที (เป้า "+tot+")"));
+  vLift();
+}
+async function toggleWalk(){ const L=await getDay(BROWSE); L.cardio=L.cardio?0:1; await putDay(BROWSE,L); vLift() }
+const PREV={};
+async function buildPrev(){
+  Object.keys(PREV).forEach(k=>delete PREV[k]);
+  for(let k=1;k<=21;k++){
+    const ds=add(BROWSE,-k); if(ds<D0)break;
+    const P=plan(ds),ex=exList(P); if(!ex.length)continue;
+    const lf=await getLift(ds);
+    ex.forEach((x,i)=>{const s=lf[i];if(s&&s.length&&!PREV[x[0]])PREV[x[0]]=s.map(v=>`${v.w??"?"}×${v.r??"?"}`).join("  ")});
+  }
+}
+
+/* ---------- กิน ---------- */
+
+let FOODS=null;
+async function getFoods(){ if(!FOODS)FOODS=await sGet("pt:foods")||[]; return FOODS }
+async function bumpFood(it){
+  const L=await getFoods();
+  const k=(it.n||"").trim().toLowerCase();
+  const ex=L.find(x=>(x.n||"").trim().toLowerCase()===k&&x.kcal===it.kcal);
+  if(ex){ex.c=(ex.c||1)+1}
+  else L.push({n:it.n,kcal:it.kcal,p:it.p,c2:it.c,f:it.f,c:1});
+  L.sort((a,b)=>(b.c||0)-(a.c||0));
+  FOODS=L.slice(0,40); await sSet("pt:foods",FOODS);
+}
+async function addFav(i,fi){
+  const L=await getFoods(), it=L[fi]; if(!it)return;
+  const D=await getDay(TODAY); D.food=D.food||[];
+  D.food.push({m:i,n:it.n,kcal:it.kcal,p:it.p,c:it.c2,f:it.f});
+  D.meals=D.meals||{}; D.meals[i]=1;
+  it.c=(it.c||1)+1; await sSet("pt:foods",FOODS);
+  await putDay(TODAY,D); toast("เพิ่ม "+it.n); vEat();
+}
+let OPENM=null;
+const MIC=['<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M16 9h2.5a2.5 2.5 0 0 1 0 5H16M4 21h14"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5C4 6.5 7.6 4 12 4s8 2.5 8 5.5M3.5 13h17M5 16.5h14"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="9.5" cy="10" r="1"/><circle cx="14" cy="13.5" r="1"/><circle cx="10.5" cy="15" r="1"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v8a5 5 0 0 0 10 0V3"/><path d="M12 16v5M8 21h8"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21a7 7 0 0 0 7-7c0-4-7-11-7-11S5 10 5 14a7 7 0 0 0 7 7z"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h18M5 17a7 7 0 0 1 14 0M12 6.5V4M8.5 10h7"/></svg>'];
+
+function FAVHTML(i){
+  const F=FOODS||[];
+  if(!F.length)return "";
+  return `<div class="favttl">กินบ่อย · FREQUENT — แตะเพื่อเพิ่มทันที</div><div class="favs">`+
+    F.slice(0,10).map((x,fi)=>`<button class="fav" data-fav="${i}.${fi}">${x.n}<s>${x.kcal}</s></button>`).join("")+`</div>`;
+}
+async function vEat(){
+  await getFoods();
+  const P=plan(TODAY),L=await getDay(TODAY);
+  const ph=P.phase>=4?3:P.phase,list=mealTimes(MEALS[ph]||MEALS[1]);
+  const [kc,pp,cc,ff]=P.kcal, got=foodSum(L);
+  const leftK=kc-got.kcal, over=leftK<0;
+  const mb=(v,t,col)=>`<div><div class="lab">${col[0]}</div><div class="v">${v}<s> / ${t} g</s></div>
+    <div class="b"><i style="width:${Math.min(100,t?v/t*100:0)}%;background:${col[1]}"></i></div></div>`;
+
+  let h=`<div class="kcalcard">
+    <div class="top"><div><div style="font-size:13px;color:var(--ink3);font-weight:700;margin-bottom:5px">แคลอรี่ · Calories</div>
+      <div class="big">${got.kcal.toLocaleString()}<s> / ${kc.toLocaleString()}</s></div></div>
+      <div class="left${over?" over":""}"><b>${Math.abs(leftK).toLocaleString()}</b><span>${over?"เกินแล้ว · over":"เหลือ · left"}</span></div></div>
+    <div class="kbar${over?" over":""}"><i style="width:${Math.min(100,got.kcal/kc*100)}%"></i></div>
+    <div class="m3">
+      ${mb(got.p,pp,["โปรตีน · Protein","#3E8F5E"])}
+      ${mb(got.c,cc,["คาร์บ · Carbs","#C89A35"])}
+      ${mb(got.f,ff,["ไขมัน · Fat","#C85F35"])}
+    </div></div>`;
+
+  if(P.refeed)h+=`<div class="note gold">วัน REFEED — เพิ่มคาร์บ +120 g ลดไขมันลง คงโปรตีนเดิม · ยังต้องชั่ง ยังเป็นอาหารสะอาด</div>`;
+  if(P.dbreak)h+=`<div class="note gold">Diet Break — กินที่ 2,600 kcal ทั้งสัปดาห์ เพิ่มคาร์บเป็นหลัก คงโปรตีนเดิม</div>`;
+  if(got.p<pp*0.75&&got.kcal>kc*0.7)h+=`<div class="note">แคลอรี่ใกล้เต็มแล้วแต่โปรตีนยังไม่ถึง — เหลือ ${pp-got.p} g เติมด้วยเวย์หรืออกไก่ อย่าเติมด้วยคาร์บ</div>`;
+
+  h+=H2("มื้ออาหารวันนี้","MEALS · tap to log");
+  list.forEach((m,i)=>{
+    const pm=macroOf(m[3]);
+    const items=(L.food||[]).map((x,idx)=>({...x,idx})).filter(x=>x.m===i);
+    const sum=items.reduce((a,x)=>a+(x.kcal||0),0);
+    h+=`<div class="mealrow"><div class="hd"><i>${MIC[i]}</i>
+      <div class="nm"><b>${m[1]} · ${m[0]}</b><span>${items.length?items.length+" รายการ":"ยังไม่ได้บันทึก · not logged"}</span></div>
+      <div class="kc">${sum?sum.toLocaleString():"—"}</div></div>
+      <div class="plan"><b style="font-weight:700">ตามแผน:</b> ${m[2]}<br><span style="color:var(--ink3);font-family:var(--mono);font-size:11px">${m[3]}</span></div>`;
+    if(items.length){
+      h+=`<div class="items">`;
+      items.forEach(x=>{h+=`<div class="fitem"><div class="n">${x.n}<em>P${x.p} C${x.c} F${x.f}</em></div>
+        <div class="k">${x.kcal}</div><button class="x" data-fdel="${x.idx}">×</button></div>`});
+      h+=`</div>`;
+    }
+    h+=`<div class="mbtns">
+      <button class="pri" data-fplan="${i}">กินตามแผน · Log plan</button>
+      <button class="sec" data-fadd="${i}">${OPENM===i?"ปิด":"+ เพิ่มเอง"}</button></div>`;
+    if(OPENM===i){
+      h+=`<div class="addfood">
+        <input id="fn" placeholder="ชื่ออาหาร เช่น ข้าวมันไก่ครึ่งจาน">
+        <div class="r4">
+          <div><label>kcal</label><input id="fk" type="number" inputmode="numeric" placeholder="0"></div>
+          <div><label>P (g)</label><input id="fp" type="number" inputmode="numeric" placeholder="0"></div>
+          <div><label>C (g)</label><input id="fc" type="number" inputmode="numeric" placeholder="0"></div>
+          <div><label>F (g)</label><input id="ff" type="number" inputmode="numeric" placeholder="0"></div>
+        </div>
+        <button class="go" style="margin-top:11px" data-fsave="${i}">บันทึกรายการ · Save</button>
+        <div style="font-size:11.5px;color:var(--ink3);margin-top:9px;line-height:1.5">ไม่รู้ค่า? ใส่แค่ kcal กับโปรตีนก็พอ — สองตัวนี้สำคัญที่สุด</div>
+        ${FAVHTML(i)}</div>`;
+    }
+    h+=`</div>`;
+  });
+
+  h+=H2("สั่งได้เลย","EAT FREELY")+`<div class="card"><div class="tags">${OK.map(t=>`<span class="tag">${t}</span>`).join("")}</div></div>`;
+  h+=H2("ห้าม","AVOID")+`<div class="card"><div class="tags">${NO.map(t=>`<span class="tag no">${t}</span>`).join("")}</div></div>`;
+  document.getElementById("v-eat").innerHTML=h;
+}
+async function logPlanned(i){
+  const P=plan(TODAY),L=await getDay(TODAY);
+  const ph=P.phase>=4?3:P.phase,list=mealTimes(MEALS[ph]||MEALS[1]);
+  const m=list[i],pm=macroOf(m[3]);
+  L.food=L.food||[]; L.food.push({m:i,n:m[2].slice(0,70),kcal:pm.kcal,p:pm.p,c:pm.c,f:pm.f});
+  L.meals=L.meals||{}; L.meals[i]=1;
+  await putDay(TODAY,L); toast("บันทึก "+m[1]+" แล้ว"); vEat();
+}
+async function saveFood(i){
+  const g=id=>{const v=parseInt(document.getElementById(id).value);return isNaN(v)?0:v};
+  const n=(document.getElementById("fn").value||"").trim();
+  const k=g("fk");
+  if(!n&&!k){toast("ใส่ชื่ออาหารหรือแคลอรี่");return}
+  const L=await getDay(TODAY);
+  const it={m:i,n:n||"รายการเพิ่มเอง",kcal:k,p:g("fp"),c:g("fc"),f:g("ff")};
+  L.food=L.food||[]; L.food.push(it);
+  L.meals=L.meals||{}; L.meals[i]=1;
+  await putDay(TODAY,L); await bumpFood(it);
+  OPENM=null; toast("บันทึกแล้ว · เก็บเข้าคลังอาหารให้แล้ว"); vEat();
+}
+async function delFood(idx){
+  const L=await getDay(TODAY); if(!L.food||!L.food[idx])return;
+  const mi=L.food[idx].m; L.food.splice(idx,1);
+  if(!L.food.some(x=>x.m===mi))delete L.meals[mi];
+  await putDay(TODAY,L); vEat();
+}
+
+/* ---------- สรุปรายสัปดาห์ ---------- */
+async function weekBox(){
+  const dow=(day(TODAY).getDay()+6)%7, mon=add(TODAY,-dow);
+  let tD=0,tP=0,wat=0,watN=0,cD=0,cP=0,cN=0,delt=0,absD=0,absP=0,absN=0,slp=[],mealD=0,mealN=0,mealT=0,wDays=0,elapsed=0;
+  for(let i=0;i<7;i++){
+    const ds=add(mon,i); if(ds<D0||ds>DEND||ds>TODAY)continue;
+    elapsed++;
+    const P=plan(ds), ex=exList(P), r=await rec(ds);
+    const hasLift=Object.keys(r.lift).some(k=>(r.lift[k]||[]).length);
+    if(P.session){tP++; if(hasLift)tD++}
+    const touched=hasLift||r.cardio||r.abs||r.water||r.steps||Object.keys(r.meals).length;
+    if(r.water)watN++; if(r.water>=P.water)wat++;
+    const ct=cardioTotal(P);
+    if(ct){cP+=ct; const dm=(typeof r.cardio==="number"&&r.cardio>1)?r.cardio:(r.cardio?ct:0); if(dm||touched)cN++; cD+=Math.min(ct,dm)}
+    if(P.abs){absP++; if(touched)absN++; if(r.abs)absD++}
+    if((r.food||[]).length){mealN++; mealD+=foodSum(r).kcal; mealT+=P.kcal[0]}
+    if(r.sleep)slp.push(r.sleep);
+    ex.forEach((e,j)=>{ if(/lateral raise|y-raise|upright row/i.test(e[0])) delt+=(r.lift[j]||[]).length });
+  }
+  const wt=await getWT(), k=Object.keys(wt).sort();
+  const inW=k.filter(x=>x>=mon&&x<=TODAY), inP=k.filter(x=>x>=add(mon,-7)&&x<mon);
+  wDays=inW.length;
+  const av=a=>a.length?a.reduce((s,x)=>s+wt[x],0)/a.length:null;
+  const a=av(inW), b=av(inP), dw=(a&&b)?a-b:null;
+  const P0=plan(TODAY), deltTarget=P0.phase===4?12:20;
+  const slpAvg=slp.length?(slp.reduce((s,x)=>s+x,0)/slp.length):null;
+
+  const opt=(v,t,n,lab,en)=>{
+    if(!n)return `<div style="margin:11px 0"><div style="display:flex;justify-content:space-between;font-size:12.5px">
+      <span style="color:var(--ink2)">${lab} <span style="font-size:10.5px;color:var(--ink3)">${en}</span></span>
+      <span class="miss">ไม่ได้กรอก · no data</span></div></div>`;
+    const pct=Math.min(100,t?v/t*100:0), col=pct>=90?"var(--moss)":(pct>=60?"var(--gold)":"var(--brick)");
+    return `<div style="margin:11px 0"><div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px">
+      <span style="color:var(--ink2)">${lab} <span style="font-size:10.5px;color:var(--ink3)">${en}</span></span><b class="num">${v} / ${t}</b></div>
+      <div class="mbar"><i style="width:${pct}%;background:${col}"></i></div></div>`;
+  };
+
+  let h=`<h2>สัปดาห์นี้<span class="en">This week · ${fmt(mon)} – ${fmt(add(mon,6))}</span></h2>`;
+
+  /* ตัวชี้วัดหลัก — มาจาก 2 อย่างที่ต้องกรอกเท่านั้น */
+  h+=`<div class="two">
+    <div class="mini"><span>น้ำหนักเฉลี่ย · Avg weight</span>
+      <b style="color:${a?"var(--red)":"var(--ink3)"}">${a?a.toFixed(1):"—"}</b>
+      <div style="font-size:11.5px;margin-top:4px;color:${dw==null?"var(--ink3)":(dw<-0.6?"var(--brick)":(dw<0?"var(--moss)":"var(--ink2)"))}">
+        ${dw==null?(wDays?"ยังเทียบไม่ได้ ต้องมี 2 สัปดาห์":"ยังไม่ได้ชั่งสัปดาห์นี้"):(dw>0?"+":"")+dw.toFixed(2)+" kg จากสัปดาห์ก่อน"}</div>
+      <div style="font-size:11px;margin-top:3px;color:var(--ink3)">ชั่งแล้ว ${wDays}/${elapsed} วัน</div></div>
+    <div class="mini"><span>วันเล่นเวท · Sessions</span>
+      <b style="color:${tP&&tD>=tP?"var(--moss)":"var(--ink)"}">${tD}<span style="display:inline;font-size:15px;color:var(--ink3)">/${tP}</span></b>
+      <div style="font-size:11.5px;margin-top:4px;color:${delt>=deltTarget?"var(--moss)":"var(--ink2)"}">เซ็ตไหล่ข้าง ${delt}/${deltTarget}</div>
+      <div style="font-size:11px;margin-top:3px;color:var(--ink3)">Side delt sets</div></div>
+  </div>`;
+
+  if(!wDays&&!tD){
+    h+=`<div class="dataq">ยังไม่มีข้อมูลสัปดาห์นี้ — รายงานสร้างจาก <b>น้ำหนักตอนเช้า</b> กับ <b>น้ำหนักที่ยกได้</b> ถ้าไม่กรอก 2 อย่างนี้ แอปจะวัดผลให้ไม่ได้เลย<br><span style="font-size:11.5px">The report is built from your weigh-ins and lift logs. Without them there is nothing to measure.</span></div>`;
+  }else if(wDays<3){
+    h+=`<div class="dataq">ชั่งน้ำหนักแค่ ${wDays} วัน — ค่าเฉลี่ยยังเชื่อถือไม่ได้ ควรชั่งอย่างน้อย 4–5 วัน/สัปดาห์ เพราะน้ำหนักแกว่งวันต่อวันจากน้ำและอาหารในท้อง<br><span style="font-size:11.5px">Weigh in at least 4–5 days a week — daily weight swings too much to read a single day.</span></div>`;
+  }
+  if(dw!=null&&dw<-0.6)h+=`<div class="note">ลดเร็วเกินเพดาน 0.6 kg/สัปดาห์ — เพิ่มแคลอรี่กลับ 150–200 (กรดยูริก 7.7 ห้ามลดเร็ว)<br><span style="font-size:11.5px">Losing faster than the 0.6 kg/week ceiling — add 150–200 kcal back.</span></div>`;
+  if(delt<deltTarget*0.8&&tD>=3)h+=`<div class="note">เซ็ตไหล่ข้างต่ำกว่าเป้า — กล้ามเนื้อนี้เปลี่ยนรูปร่างคุณมากที่สุด<br><span style="font-size:11.5px">Side delt volume below target — your highest-ROI muscle.</span></div>`;
+
+  h+=`<details><summary>ข้อมูลเสริม · Optional tracking</summary><div class="card">
+    <div style="font-size:12.5px;color:var(--ink2);margin-bottom:6px">ไม่ได้กรอกก็ไม่ผิด — ส่วนนี้ไม่ได้ใช้ตัดสินใจอะไร แค่ช่วยหาสาเหตุตอนผลไม่เป็นไปตามแผน<br>
+      <span style="font-size:11px;color:var(--ink3)">Optional. Skipping these does not affect the program.</span></div>
+    ${opt(cD,cP,cN,"คาร์ดิโอ (นาที)","Cardio minutes")}
+    ${opt(absD,absP,absN,"หน้าท้อง","Abs")}
+    ${opt(wat,elapsed,watN,"วันที่ดื่มน้ำครบ","Water")}
+    ${opt(mealD,mealT,mealN,"แคลอรี่ที่บันทึก","Calories logged")}
+    <div class="stats" style="margin-top:12px">
+      <div><b style="color:${slpAvg?(slpAvg<6?"var(--brick)":"var(--ink)"):"var(--ink3)"}">${slpAvg?slpAvg.toFixed(1):"—"}</b><span>นอนเฉลี่ย ชม. · Sleep</span></div>
+      <div><b>${slp.length}</b><span>วันที่บันทึก · logged</span></div></div>
+  </div></details>`;
+  return h;
+}
+
+/* ---------- กราฟแรงรายท่า ---------- */
+let EXSEL=null;
+async function strengthBox(){
+  const x=await getIdx(), names=Object.keys(x.ex).filter(n=>Object.keys(x.ex[n]).length>=2)
+    .sort((a,b)=>Object.keys(x.ex[b]).length-Object.keys(x.ex[a]).length);
+  if(!names.length)return `<h2>แรงที่ยกได้</h2><div class="card"><div class="empty">บันทึกน้ำหนักและจำนวนครั้งอย่างน้อย 2 ครั้งในท่าเดียวกัน แล้วกราฟจะขึ้นที่นี่</div></div>`;
+  if(!EXSEL||!x.ex[EXSEL])EXSEL=names[0];
+  const D=x.ex[EXSEL], ks=Object.keys(D).sort(), v=ks.map(d=>D[d]);
+  const lo=Math.min(...v)*0.94, hi=Math.max(...v)*1.06, WD=600,HT=150,pd=22;
+  const X=i=>pd+(ks.length<2?0:i/(ks.length-1))*(WD-pd*2);
+  const Y=n=>HT-pd-(n-lo)/((hi-lo)||1)*(HT-pd*2);
+  const line=ks.map((d,i)=>(i?"L":"M")+X(i).toFixed(1)+","+Y(D[d]).toFixed(1)).join(" ");
+  const first=v[0], last=v[v.length-1], ch=(last-first)/first*100;
+  return `<h2>แรงที่ยกได้<span class="en">Estimated 1RM trend</span></h2><div class="card">
+    <select id="exSel" style="width:100%;border:1px solid var(--line);background:var(--s2);border-radius:10px;padding:11px;color:var(--ink);font-family:inherit;font-size:14px">
+      ${names.map(n=>`<option value="${n.replace(/"/g,"&quot;")}"${n===EXSEL?" selected":""}>${n}</option>`).join("")}</select>
+    <svg viewBox="0 0 ${WD} ${HT}" preserveAspectRatio="none" style="width:100%;height:150px;display:block;margin-top:10px">
+      <path d="${line}" fill="none" stroke="#C85F35" stroke-width="2.2"/>
+      ${ks.map((d,i)=>`<circle cx="${X(i).toFixed(1)}" cy="${Y(D[d]).toFixed(1)}" r="3" fill="#C85F35"/>`).join("")}
+      <text x="6" y="14" font-size="11" fill="#94A0B4" font-family="monospace">${hi.toFixed(0)}</text>
+      <text x="6" y="${HT-4}" font-size="11" fill="#94A0B4" font-family="monospace">${lo.toFixed(0)}</text></svg>
+    <div class="stats" style="margin-top:10px">
+      <div><b>${first.toFixed(1)}</b><span>ครั้งแรก kg</span></div>
+      <div class="hi"><b>${last.toFixed(1)}</b><span>ล่าสุด kg</span></div>
+      <div><b style="color:${ch<-10?"var(--brick)":(ch>0?"var(--moss)":"var(--ink)")}">${ch>0?"+":""}${ch.toFixed(1)}%</b><span>เปลี่ยนแปลง</span></div>
+    </div>
+    ${ch<-10?`<div class="note" style="margin-top:12px">แรงตกเกิน 10% — ตามกฎที่ตั้งไว้ ให้เพิ่มแคลอรี่กลับ 150–200 ทันที และเช็กว่าโปรตีนกับการนอนพอไหม</div>`:""}
+    <div style="font-size:12px;color:var(--ink3);margin-top:9px">คำนวณจากเซ็ตที่ดีที่สุดของแต่ละวัน (Epley) · ตัวเลขนี้ใช้ดูแนวโน้ม ไม่ใช่ให้ไปลองยกจริง</div></div>`;
+}
+
+/* ---------- ชั่ง / ผล ---------- */
+async function vWeigh(){
+  const wt=await getWT(),mz=await getMZ(),keys=Object.keys(wt).sort();
+  let h=await weekBox();
+  h+=`<h2>น้ำหนัก<span class="en">Body weight</span></h2><div class="card"><div style="font-size:12.5px;color:var(--ink3)">น้ำหนักเช้านี้ · ${fmt(TODAY)}</div>
+    <div class="bigin"><input id="wIn2" type="number" step="0.1" inputmode="decimal" value="${wt[TODAY]??""}" placeholder="0.0"><button onclick="saveWeight(1)">บันทึก</button></div>
+    <div class="stats" style="margin-top:12px"><div class="hi"><b>${keys.length?wt[keys[keys.length-1]].toFixed(1):"—"}</b><span>ล่าสุด</span></div>${trendCells(wt)}</div>
+    <div style="font-size:12.5px;color:var(--ink2);margin-top:9px">เพดานคือ −0.6 kg/สัปดาห์ · เร็วกว่านี้ให้เพิ่มแคลอรี่กลับ 150–200</div></div>`;
+  h+=chart(wt);
+  h+=await strengthBox();
+  h+=`<h2>วัดรอบตัวทุก 4 สัปดาห์<span class="en">Measurements every 4 weeks</span></h2><div class="card mz"><div class="grid2">
+    <div><label>รอบไหล่ · Shoulders (cm)</label><input id="mz_sh" type="number" step="0.5" inputmode="decimal" value="${mz[TODAY]?.sh??""}"></div>
+    <div><label>เอว · Waist (cm)</label><input id="mz_wa" type="number" step="0.5" inputmode="decimal" value="${mz[TODAY]?.wa??""}"></div>
+    <div><label>แขนขวา · Right arm (cm)</label><input id="mz_ar" type="number" step="0.5" inputmode="decimal" value="${mz[TODAY]?.ar??""}"></div>
+    <div><label>แขนซ้าย · Left arm (cm)</label><input id="mz_al" type="number" step="0.5" inputmode="decimal" value="${mz[TODAY]?.al??""}"></div>
+    <div><label>PBF จาก InBody (%)</label><input id="mz_bf" type="number" step="0.1" inputmode="decimal" value="${mz[TODAY]?.bf??""}"></div>
+    <div><label>SMM จาก InBody (kg)</label><input id="mz_sm" type="number" step="0.1" inputmode="decimal" value="${mz[TODAY]?.sm??""}"></div></div>
+    <button class="go" onclick="saveMz()" style="margin-top:12px">บันทึกการวัด · Save</button>${mzRatio(mz)}</div>`;
+  h+=`<h2>จุดตรวจวัด<span class="en">Checkpoints</span></h2><div class="card"><table><tr><th>จุด<br>Point</th><th>วันที่<br>Date</th><th>เป้า kg<br>Target</th><th>PBF</th><th>จริง<br>Actual</th></tr>`;
+  CHECK.forEach(([lb,ds,w,bf])=>{
+    const real=nearest(wt,ds), cls=real==null?"":(real<=w+0.5?"hit":"miss");
+    h+=`<tr class="${cls}"><td>${lb}</td><td class="num">${fmt(ds)}</td><td class="num">${w.toFixed(1)}</td><td class="num">${bf.toFixed(1)}%</td><td class="num">${real!=null?real.toFixed(1):"—"}</td></tr>`;
+  });
+  h+=`</table></div>`;
+  document.getElementById("v-weigh").innerHTML=h;
+}
+function nearest(wt,ds){let best=null,bd=9e9;for(const k in wt){const d=Math.abs(diff(k,ds));if(d<bd&&d<=4){bd=d;best=wt[k]}}return best}
+function mzRatio(mz){
+  const k=Object.keys(mz).sort(); if(!k.length)return "";
+  const l=mz[k[k.length-1]]; if(!l||!l.sh||!l.wa)return "";
+  return `<div class="stats" style="margin-top:12px"><div class="hi"><b>${(l.sh/l.wa).toFixed(2)}</b><span>ไหล่ ÷ เอว · V-taper</span></div>
+    <div><b>1.55–1.60</b><span>เป้าหมาย</span></div>${l.ar&&l.al?`<div><b>${Math.abs(l.ar-l.al).toFixed(1)}</b><span>ต่างซ้าย-ขวา cm</span></div>`:""}</div>`;
+}
+function chart(wt){
+  const k=Object.keys(wt).sort();
+  if(k.length<2)return `<div class="card"><div class="empty">ชั่งอย่างน้อย 2 วันเพื่อดูกราฟแนวโน้ม</div></div>`;
+  const WD=600,HT=180,pd=24;
+  const x0=diff(D0,k[0]),x1=Math.max(diff(D0,k[k.length-1]),diff(D0,"2027-04-13"));
+  const vals=k.map(d=>wt[d]),lo=Math.min(66,...vals)-1,hi=Math.max(...vals)+1;
+  const X=ds=>pd+(diff(D0,ds)-x0)/(x1-x0||1)*(WD-pd*2);
+  const Y=v=>HT-pd-(v-lo)/(hi-lo||1)*(HT-pd*2);
+  const line=k.map((d,i)=>(i?"L":"M")+X(d).toFixed(1)+","+Y(wt[d]).toFixed(1)).join(" ");
+  const area=line+` L${X(k[k.length-1]).toFixed(1)},${HT-pd} L${X(k[0]).toFixed(1)},${HT-pd} Z`;
+  const tgt=CHECK.map(c=>[c[1],c[2]]).filter(c=>c[0]>=k[0]);
+  const tline=[[k[0],wt[k[0]]]].concat(tgt).map((c,i)=>(i?"L":"M")+X(c[0]).toFixed(1)+","+Y(c[1]).toFixed(1)).join(" ");
+  return `<div class="card" style="padding:12px 4px 8px"><svg class="chart" viewBox="0 0 ${WD} ${HT}" preserveAspectRatio="none">
+    <defs><linearGradient id="gg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C85F35" stop-opacity=".18"/><stop offset="1" stop-color="#C85F35" stop-opacity="0"/></linearGradient></defs>
+    <path d="${area}" fill="url(#gg)" stroke="none"/>
+    <path d="${tline}" fill="none" stroke="#5F7F4F" stroke-width="1.4" stroke-dasharray="5 5"/>
+    <path d="${line}" fill="none" stroke="#C85F35" stroke-width="2.2"/>
+    ${k.slice(-1).map(d=>`<circle cx="${X(d).toFixed(1)}" cy="${Y(wt[d]).toFixed(1)}" r="4" fill="#C85F35"/>`).join("")}
+    <text x="6" y="14" font-size="11" fill="#94A0B4" font-family="monospace">${hi.toFixed(0)}</text>
+    <text x="6" y="${HT-4}" font-size="11" fill="#94A0B4" font-family="monospace">${lo.toFixed(0)}</text></svg>
+    <div style="padding:6px 12px 0;font-size:12px;color:var(--ink3)">เส้นทอง = น้ำหนักจริง · เส้นประฟ้า = เส้นทางที่วางไว้</div></div>`;
+}
+
+/* ---------- แผน ---------- */
+function vPlan(){
+  const P=plan(BROWSE),ex=exList(P);
+  let h=`<div class="dnav"><button data-d="-1">‹</button><div>${fmt(BROWSE)} · ${TH_D[day(BROWSE).getDay()]}</div><button data-d="1">›</button></div>
+  <div class="card"><div style="font-size:11.5px;color:var(--gold);font-weight:700;letter-spacing:.06em">${P.label}</div>
+    <div style="font-size:19px;font-weight:800;margin-top:4px;letter-spacing:-.01em">${P.session?P.session.n:(P.kind==="end"?"จบโปรแกรม":"วันพัก")}</div>
+    <div style="font-size:13px;color:var(--ink2);margin-top:8px;line-height:1.7">คาร์ดิโอ: ${P.cardio||"—"}<br>หน้าท้อง: ${P.abs?"ชุด "+P.abs:"—"} · ก้าว: ${P.steps.toLocaleString()}</div>
+    <div class="stats" style="margin-top:12px"><div class="hi"><b>${P.kcal[0].toLocaleString()}</b><span>kcal</span></div>
+      <div><b>${P.kcal[1]}</b><span>P</span></div><div><b>${P.kcal[2]}</b><span>C</span></div><div><b>${P.kcal[3]}</b><span>F</span></div></div>
+    ${P.note?`<div class="note${P.refeed||P.dbreak?" gold":""}" style="margin-top:12px">${P.note}</div>`:""}</div>`;
+  if(ex.length){
+    h+=`<h2>ท่าวันนี้<span class="en">Exercises</span></h2><div class="card" style="padding:2px 15px">`;
+    ex.forEach(x=>{h+=`<div class="ex"><div class="ex-top"><div class="fig">${figFor(x[0])}</div>
+      <div class="ex-i"><b>${x[0]}</b><div><span class="sr">${x[1]} × ${x[2]}</span><span class="mt">RIR ${x[3]}</span></div></div></div>
+      ${x[5]?`<div class="ex-tip">${x[5]}</div>`:""}</div>`});
+    h+=`</div>`;
+  }
+  h+=`<h2>กฎที่ห้ามละเมิด<span class="en">Non-negotiable rules</span></h2><div class="card">${RULES.map(r=>`<div class="rule${r[2]?" g":""}"><s>${r[0]}</s><span>${r[1]}</span></div>`).join("")}</div>`;
+  h+=`<h2>ผลเลือด 2026<span class="en">Blood work</span></h2><div class="card"><table><tr><th class="l">ค่า</th><th>ผล</th><th>เกณฑ์</th></tr>
+    <tr class="miss"><td class="l">Cholesterol</td><td class="num">221</td><td class="num" style="color:var(--brick)">150–200</td></tr>
+    <tr class="miss"><td class="l">Uric Acid</td><td class="num">7.7</td><td class="num" style="color:var(--brick)">2.4–7.5</td></tr>
+    <tr class="hit"><td class="l">HDL</td><td class="num">61</td><td class="num" style="color:var(--moss)">35–65</td></tr>
+    <tr class="hit"><td class="l">LDL</td><td class="num">133</td><td class="num" style="color:var(--moss)">&lt;150</td></tr>
+    <tr class="hit"><td class="l">ALT / AST</td><td class="num">9 / 14</td><td class="num" style="color:var(--moss)">0–50</td></tr>
+    <tr class="hit"><td class="l">eGFR</td><td class="num">116</td><td class="num" style="color:var(--moss)">&gt;90</td></tr>
+    <tr class="hit"><td class="l">FBS</td><td class="num">92</td><td class="num" style="color:var(--moss)">70–110</td></tr></table>
+    <div style="font-size:12.5px;color:var(--ink2);margin-top:12px;line-height:1.65">Chol÷HDL = 3.6 · TG÷HDL = 2.2 — อัตราส่วนยังอยู่ในเกณฑ์ดี ตับและไตดีเยี่ยม<br>
+    เจาะซ้ำที่สัปดาห์ 20 (ต้นเดือน ก.พ. 2027) ขอเพิ่ม วิตามินดี · ฮอร์โมนเพศชาย · TSH · HbA1c · CBC<br>
+    ครีเอทีนดันค่า Creatinine ขึ้นเล็กน้อยโดยไม่ได้แปลว่าไตแย่ — บอกแพทย์ทุกครั้ง หรือหยุด 2 สัปดาห์ก่อนเจาะ</div></div>
+    <div class="note" style="margin-top:11px">MonsterGoldX เป็นเครื่องมือช่วยจดบันทึก ไม่ใช่คำแนะนำทางการแพทย์ — เอาผลเลือดไปคุยกับแพทย์ก่อนเริ่ม และหยุดทันทีถ้ามีอาการผิดปกติ</div>`;
+
+  const gym=(SET&&SET.gym)||1140;
+  h+=`<h2>ตั้งค่า<span class="en">Settings</span></h2><div class="card">
+    <label style="font-size:12.5px;color:var(--ink2);display:block;margin-bottom:7px">เวลาเข้ายิม — เวลามื้อก่อนเล่น หลังเล่น และมื้อเย็นจะเลื่อนตาม</label>
+    <select id="gymSel" style="width:100%;border:1px solid var(--line);background:var(--s2);border-radius:10px;padding:12px;color:var(--ink);font-family:inherit;font-size:15px">
+      ${[360,420,600,660,960,1020,1080,1140,1200].map(v=>`<option value="${v}"${v===gym?" selected":""}>${String(Math.floor(v/60)).padStart(2,"0")}:${String(v%60).padStart(2,"0")} น.</option>`).join("")}
+    </select>
+    <div style="font-size:12px;color:var(--ink3);margin-top:9px">ก่อนเล่น ${hhmm(mealSlots().pre)} · หลังเล่น ${hhmm(mealSlots().post)} · มื้อเย็น ${hhmm(mealSlots().din)}</div></div>`;
+
+  h+=`<div class="card" style="margin-top:11px"><div style="font-size:13px;color:var(--ink2);line-height:1.6">ตั้งค่าเส้นฐาน — ชั่ง วัดรอบตัว ถ่ายรูป และยืนยันว่าคุยกับแพทย์เรื่องผลเลือดแล้ว</div>
+    <button class="go ghost" style="margin-top:11px" onclick="reOnboard()">เปิดหน้าตั้งค่าเริ่มต้น · Baseline setup</button></div>`;
+  h+=`<h2>สำรองข้อมูล<span class="en">Backup & restore</span></h2><div class="card">
+    <div style="font-size:13px;color:var(--ink2);line-height:1.6">ข้อมูลทั้งหมดเก็บอยู่ในแอปนี้ที่เดียว ไม่มีสำรองอัตโนมัติ — <b style="color:var(--gold)">ส่งออกเก็บไว้ทุกเดือน</b> แล้วเซฟไฟล์ไว้ในมือถือหรือส่งเข้าอีเมลตัวเอง</div>
+    <div style="display:flex;gap:8px;margin-top:11px">
+      <button class="go" onclick="doExport()" style="flex:1">ส่งออก · Export</button>
+      <button class="go ghost" onclick="doImport()" style="flex:1">นำเข้า · Import</button>
+    </div>
+    <textarea id="ioBox" rows="4" placeholder="กดส่งออกแล้วข้อความสำรองจะขึ้นตรงนี้ให้คัดลอกเก็บไว้ · จะกู้คืนก็วางข้อความกลับมาแล้วกดนำเข้า"
+      style="width:100%;margin-top:10px;border:1px solid var(--line);background:var(--s2);border-radius:10px;padding:11px;font-family:var(--mono);font-size:11px;color:var(--ink2);resize:vertical"></textarea>
+    <div style="font-size:12px;color:var(--ink3);margin-top:8px">นำเข้าจะเขียนทับเฉพาะวันที่มีในไฟล์ วันอื่นไม่ถูกแตะ</div></div>`;
+  document.getElementById("v-plan").innerHTML=h;
+}
+
+/* ---------- เหตุการณ์ ---------- */
+async function render(){
+  await getSet();
+  renderHeader();
+  document.querySelectorAll(".view").forEach(v=>v.classList.remove("on"));
+  document.getElementById("v-"+VIEW).classList.add("on");
+  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.v===VIEW));
+  if(VIEW==="today"){ if(!(SET&&SET.onboarded))await vOnboard(); else await vToday(); }
+  if(VIEW==="lift"){await buildPrev();await vLift()}
+  if(VIEW==="eat")await vEat();
+  if(VIEW==="weigh")await vWeigh();
+  if(VIEW==="plan")vPlan();
+  if(window.scrollTo)window.scrollTo(0,0);
+}
+document.querySelector("nav").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b)return;
+  VIEW=b.dataset.v; render();
+});
+document.addEventListener("click",async e=>{
+  const ob=e.target.closest("[data-ob]");
+  if(ob){await obAct(ob.dataset.ob);return}
+  const g=e.target.closest("[data-goto]");
+  if(g){VIEW=g.dataset.goto;BROWSE=TODAY;render();return}
+  const tg=e.target.closest("[data-tg]");
+  if(tg){const L=await getDay(TODAY);L[tg.dataset.tg]=L[tg.dataset.tg]?0:1;await putDay(TODAY,L);
+    if(VIEW==="lift")vLift(); else vToday(); return}
+  const qw=e.target.closest("[data-qw]");
+  if(qw){const P=plan(TODAY),L=await getDay(TODAY);
+    L.water=L.water>=P.water?0:L.water+1; await putDay(TODAY,L);
+    toast(L.water>=P.water?"น้ำครบแล้ววันนี้":"น้ำ "+(L.water*.5).toFixed(1)+" ลิตร"); vToday(); return}
+  const w=e.target.closest("[data-w]");
+  if(w){const L=await getDay(TODAY);const n=+w.dataset.w;L.water=(L.water===n)?n-1:n;await putDay(TODAY,L);vToday();return}
+  const fp=e.target.closest("[data-fplan]");
+  if(fp){await logPlanned(+fp.dataset.fplan);return}
+  const fa=e.target.closest("[data-fadd]");
+  if(fa){const i=+fa.dataset.fadd; OPENM=(OPENM===i)?null:i; vEat(); return}
+  const fsv=e.target.closest("[data-fsave]");
+  if(fsv){await saveFood(+fsv.dataset.fsave);return}
+  const fv=e.target.closest("[data-fav]");
+  if(fv){const a=fv.dataset.fav.split(".");await addFav(+a[0],+a[1]);return}
+  const fd=e.target.closest("[data-fdel]");
+  if(fd){await delFood(+fd.dataset.fdel);return}
+  const ad=e.target.closest("[data-add]");
+  if(ad){const i=ad.dataset.add,lf=await getLift(BROWSE);lf[i]=lf[i]||[];
+    const p=lf[i][lf[i].length-1];lf[i].push({w:p?p.w:null,r:null});await putLift(BROWSE,lf);
+    startTimer(+ad.dataset.rest);await vLift();
+    const ins=document.querySelectorAll(`input[data-e="${i}"][data-k="r"]`);if(ins.length)ins[ins.length-1].focus();return}
+  const rm=e.target.closest("[data-rm]");
+  if(rm){const p=rm.dataset.rm.split("."),lf=await getLift(BROWSE);lf[p[0]].splice(+p[1],1);
+    if(!lf[p[0]].length)delete lf[p[0]];await putLift(BROWSE,lf);vLift();return}
+  const t=e.target.closest("[data-t]");
+  if(t){startTimer(+t.dataset.t);return}
+  const dn=e.target.closest("[data-d]");
+  if(dn){BROWSE=add(BROWSE,+dn.dataset.d);if(BROWSE<D0)BROWSE=D0;if(BROWSE>DEND)BROWSE=DEND;
+    if(VIEW==="lift"){await buildPrev();vLift()}else vPlan();return}
+});
+document.addEventListener("change",async e=>{
+  if(e.target.id==="exSel"){ EXSEL=e.target.value; vWeigh(); return }
+  if(e.target.id==="gymSel"){ const st=await getSet(); st.gym=+e.target.value; SET=st;
+    await sSet("pt:settings",st); toast("ปรับเวลามื้ออาหารแล้ว"); vPlan(); return }
+  const inp=e.target.closest("input[data-e]"); if(!inp)return;
+  const lf=await getLift(BROWSE),i=inp.dataset.e,j=+inp.dataset.s;
+  if(!lf[i]||!lf[i][j])return;
+  lf[i][j][inp.dataset.k]=inp.value===""?null:+inp.value;
+  await putLift(BROWSE,lf); toast();
+});
+async function saveWeight(second){
+  const el=document.getElementById(second?"wIn2":"wIn"),v=parseFloat(el.value);
+  if(!v||v<40||v>160){toast("ใส่น้ำหนักเป็นตัวเลข kg");return}
+  const wt=await getWT(); wt[TODAY]=v; WT=wt; await sSet("pt:weight",wt);
+  toast("บันทึก "+v.toFixed(1)+" kg"); render();
+}
+async function saveMz(pfx){
+  const q=pfx||"mz_";
+  const mz=await getMZ(),g=id=>{const e=document.getElementById(q+id);const v=e?parseFloat(e.value):NaN;return isNaN(v)?null:v};
+  const o={sh:g("sh"),wa:g("wa"),ar:g("ar"),al:g("al"),bf:g("bf"),sm:g("sm")};
+  if(!Object.values(o).some(v=>v!==null)){toast("ยังไม่ได้กรอกค่าวัด");return}
+  mz[TODAY]=o; MZ=mz; await sSet("pt:measure",mz); toast("บันทึกการวัดแล้ว");
+  if(!pfx)vWeigh();
+}
+async function saveNote(){
+  const r=await rec(TODAY);
+  const sl=parseFloat(document.getElementById("slIn").value);
+  r.sleep=isNaN(sl)?null:sl;
+  r.note=document.getElementById("ntIn").value.slice(0,600);
+  cache[TODAY]=r; await save(TODAY);
+  toast(r.sleep&&r.sleep<6?"บันทึกแล้ว — นอนน้อยไปนะ":"บันทึกโน้ตแล้ว");
+}
+async function doExport(){
+  toast("กำลังรวบรวมข้อมูล…");
+  const x=await getIdx();
+  const out={app:"MonsterGoldX",v:1,made:new Date().toISOString(),
+    weight:await getWT(),measure:await getMZ(),settings:await getSet(),foods:await getFoods(),days:{}};
+  for(const ds of x.d){ out.days[ds]=await rec(ds) }
+  const txt=JSON.stringify(out);
+  try{ const b=new Blob([txt],{type:"application/json"});
+    const a=document.createElement("a"); a.href=URL.createObjectURL(b);
+    a.download="MonsterGoldX-"+TODAY+".json"; document.body.appendChild(a); a.click(); a.remove();
+  }catch(e){}
+  const box=document.getElementById("ioBox"); if(box){box.value=txt;box.focus();box.select()}
+  toast("ส่งออก "+x.d.length+" วันแล้ว");
+}
+async function doImport(){
+  const box=document.getElementById("ioBox"); let o;
+  try{ o=JSON.parse(box.value) }catch(e){ toast("ข้อความสำรองไม่ถูกต้อง"); return }
+  if(!o||!o.days){ toast("ข้อความสำรองไม่ถูกต้อง"); return }
+  toast("กำลังนำเข้า…");
+  const x=await getIdx();
+  for(const ds in o.days){
+    const r=Object.assign(blank(),o.days[ds]);
+    cache[ds]=r; await sSet("pt:d:"+ds,r);
+    if(!x.d.includes(ds))x.d.push(ds);
+    await idxLift(ds,r.lift||{});
+  }
+  x.d.sort(); IDX=x; await sSet("pt:idx",x);
+  if(o.weight){ WT=o.weight; await sSet("pt:weight",WT) }
+  if(o.measure){ MZ=o.measure; await sSet("pt:measure",MZ) }
+  if(o.settings){ SET=o.settings; await sSet("pt:settings",SET) }
+  if(o.foods){ FOODS=o.foods; await sSet("pt:foods",FOODS) }
+  toast("นำเข้า "+Object.keys(o.days).length+" วันแล้ว");
+  render();
+}
+async function reOnboard(){ const st=await getSet(); st.onboarded=0; SET=st; await sSet("pt:settings",st); VIEW="today"; render() }
+let tmI=null,tmEnd=0,tmTot=0;
+function startTimer(sec){ if(!sec)return; stopTimer(); tmTot=sec; tmEnd=Date.now()+sec*1000;
+  document.getElementById("timer").classList.add("on"); tick(); tmI=setInterval(tick,200) }
+function tick(){
+  const left=Math.max(0,tmEnd-Date.now()),s=Math.ceil(left/1000);
+  document.getElementById("tmN").textContent=String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+  document.getElementById("tmP").style.width=(left/(tmTot*1000)*100)+"%";
+  if(left<=0){stopTimer();if(navigator.vibrate)navigator.vibrate([120,80,120]);toast("หมดเวลาพัก — เซ็ตต่อไป")}
+}
+function stopTimer(){ clearInterval(tmI); tmI=null; document.getElementById("timer").classList.remove("on") }
+render();
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker.register("sw.js").catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>
